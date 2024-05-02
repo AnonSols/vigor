@@ -1,27 +1,36 @@
+
 import { CabinType } from "../../types";
 import supabase from "./supabase";
 
 export async function getCabins() {
-  const { data, error } = await supabase.from("cabins").select("*");
+ try{
+   const { data } = await supabase.from("cabins").select("*");
 
-  if (error)
-    throw new Error(
-      "An error occured from our end getting the cabins, it will be rectified soon!"
-    );
+ 
 
-  return data;
+return data;
+}catch(err) {
+   throw new Error(
+  "An error occured from our end getting the cabins, it will be rectified soon!")
+}
 }
 
 export async function createCabin(data:CabinType) {
-
-const { data:newCabin, error } = await supabase
+try {
+  
+const { data:newCabin,  } = await supabase
   .from('cabins')
   .insert(data)
   .select()
 
-  if (error) throw new Error("An error occurerd creating a cabin.")
+  return newCabin;
 
-    return newCabin;
+}catch(err) {
+ 
+throw new Error("An error occurerd creating a cabin.")
+}
+  
+
 
 
     

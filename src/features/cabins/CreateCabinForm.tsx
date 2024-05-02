@@ -4,7 +4,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { CabinType, tableData } from "../../../types";
+import { newCabinType, tableData } from "../../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
@@ -17,7 +17,7 @@ function CreateCabinForm() {
     reset,
     getValues,
     formState: { errors },
-  } = useForm<CabinType>();
+  } = useForm<newCabinType>();
 
   console.log(errors);
   const query = useQueryClient();
@@ -35,10 +35,8 @@ function CreateCabinForm() {
     },
   });
 
-  function onSubmit(data: CabinType) {
-    console.log(data.image);
-    mutate;
-    // mutate({ ...data, image: data.image?.[0] as string });
+  function onSubmit(data: newCabinType) {
+    mutate({ ...data, image: data.image[0] as newCabinType["image"] });
   }
 
   // function onError(errors: string) {

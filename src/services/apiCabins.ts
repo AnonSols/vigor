@@ -1,5 +1,5 @@
 
-import { CabinType } from "../../types";
+import { newCabinType } from "../../types";
 import supabase, { SUPABASE_URL } from "./supabase";
 
 export async function getCabins() {
@@ -16,7 +16,7 @@ return data;
 }
 
 // type newCabinType = CabinType & {image:{name:string}}
- type newCabinType = Omit<CabinType, 'image'> & {image:string & {name:string}};
+
 
 export async function createCabin(data:newCabinType) {
   try {
@@ -44,11 +44,17 @@ const { error:storageError } = await supabase
   .from('cabins')
   .upload(imageName, data.image )
   
+
+  //delete cabin if an storage error occured
   if (storageError) {
     await supabase
   .from('cabins')
   .delete()
   .eq('id', data.id)
+
+  console.log(storageError);
+
+  throw new Error("An error uploading your image and cabin has been deleted.")
   }
   return {newCabin};
   

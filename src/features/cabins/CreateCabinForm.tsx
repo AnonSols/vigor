@@ -10,43 +10,6 @@ import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 
-// const FormRow = styled.div`
-//   display: grid;
-//   align-items: center;
-//   grid-template-columns: 24rem 1fr 1.2fr;
-//   gap: 2.4rem;
-
-//   padding: 1.2rem 0;
-
-//   &:first-child {
-//     padding-top: 0;
-//   }
-
-//   &:last-child {
-//     padding-bottom: 0;
-//   }
-
-//   &:not(:last-child) {
-//     border-bottom: 1px solid var(--color-grey-100);
-//   }
-
-//   &:has(button) {
-//     display: flex;
-//     justify-content: flex-end;
-//     gap: 1.2rem;
-//   }
-// `;
-
-// const Label = styled.label`
-//   font-weight: 500;
-// `;
-
-// const Error = styled.span`
-//   font-size: 1.4rem;
-//   color: var(--color-red-700);
-// `;
-// Error;
-
 function CreateCabinForm() {
   const {
     register,
@@ -73,12 +36,15 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data: CabinType) {
-    mutate({ ...data, image: data.image?.at(0) as string });
+    console.log(data.image);
+    mutate;
+    // mutate({ ...data, image: data.image?.[0] as string });
   }
 
   // function onError(errors: string) {
   //   // console.log("There was an error ", errors);
   // }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Cabin name" error={`${errors?.name?.message}`}>

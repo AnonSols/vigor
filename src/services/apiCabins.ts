@@ -1,33 +1,61 @@
 
 import { CabinType } from "../../types";
-import supabase from "./supabase";
+import supabase, { SUPABASE_URL } from "./supabase";
 
 export async function getCabins() {
  try{
-   const { data } = await supabase.from("cabins").select("*");
+   const { data, error } = await supabase.from("cabins").select("*");
 
- 
+   if(error) throw new Error("An error occured getting the cabins")
+
 
 return data;
 }catch(err) {
-   throw new Error(
-  "An error occured from our end getting the cabins, it will be rectified soon!")
+  throw new Error((err as Error).message)
 }
 }
 
-export async function createCabin(data:CabinType) {
-try {
+// type newCabinType = CabinType & {image:{name:string}}
+ type newCabinType = Omit<CabinType, 'image'> & {image:string & {name:string}};
+
+export async function createCabin(data:newCabinType) {
+  try {
+    
+    
+  const imageName = `${Math.random()}-${data.image.name}}`.replaceAll('/',"");
+
+  const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
   
-const { data:newCabin,  } = await supabase
+  //create the cabin
+  const { data:newCabin, error } = await supabase
   .from('cabins')
-  .insert(data)
+  .insert({...data,image:imageUrl})
   .select()
+  
+  
+  if(error) 
+    throw new Error("An error occurerd creating a cabin.") 
 
-  return newCabin;
-
-}catch(err) {
+  
+ //create the image
  
-throw new Error("An error occurerd creating a cabin.")
+const { error:storageError } = await supabase
+  .storage
+  .from('cabins')
+  .upload(imageName, data.image )
+  
+  if (storageError) {
+    await supabase
+  .from('cabins')
+  .delete()
+  .eq('id', data.id)
+  }
+  return {newCabin};
+  
+  
+}catch(err) {
+  
+  throw new Error((err as Error).message)
 }
   
 

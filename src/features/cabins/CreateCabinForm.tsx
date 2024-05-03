@@ -29,19 +29,14 @@ function CreateCabinForm() {
       query.invalidateQueries({ queryKey: [tableData.CABINS] });
       reset();
     },
-    onError(error: string) {
-      console.log("check", error);
-      toast.error("An error occured");
+    onError(error: Error) {
+      toast.error(error.message);
     },
   });
 
   function onSubmit(data: newCabinType) {
-    mutate({ ...data, image: data.image[0] as newCabinType["image"] });
+    mutate({ ...data, image: data.image[0] as string });
   }
-
-  // function onError(errors: string) {
-  //   // console.log("There was an error ", errors);
-  // }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -97,7 +92,7 @@ function CreateCabinForm() {
             required: "This field is required!",
             validate: (value) =>
               value! <= getValues().regularPrice! ||
-              "Your discount must be lower than your regular price",
+              "Discount cannot be greater than the regular price",
           })}
         />
       </FormRow>

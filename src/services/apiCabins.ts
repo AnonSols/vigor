@@ -21,8 +21,7 @@ return data;
 export async function createCabin(data:newCabinType) {
   try {
     
-    
-  const imageName = `${Math.random()}-${data.image.name}}`.replaceAll('/',"");
+  const imageName = `${Math.random()}-${data.image.name}`.replaceAll('/',"");
 
   const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
   
@@ -33,9 +32,9 @@ export async function createCabin(data:newCabinType) {
   .select()
   
   
-  if(error) 
+  if(error) {console.log(error)
     throw new Error("An error occurerd creating a cabin.") 
-
+}
   
  //create the image
  
@@ -43,7 +42,7 @@ const { error:storageError } = await supabase
   .storage
   .from('cabins')
   .upload(imageName, data.image )
-  
+ 
 
   //delete cabin if an storage error occured
   if (storageError) {
@@ -63,11 +62,7 @@ const { error:storageError } = await supabase
   
   throw new Error((err as Error).message)
 }
-  
-
-
-
-    
+   
 }
 
 export async function deleteCabins(id:number) {
@@ -79,5 +74,5 @@ const {data, error } = await supabase
 
   if(error) throw new Error("Cabins couldn't be deleted!")
 
-    return data;
+  return data;
 }

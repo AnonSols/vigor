@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { CabinType } from "../../../types/cabinTypes";
+import { newCabinType } from "../../../types/cabinTypes";
 import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import { tableData } from "../../../types";
 import toast from "react-hot-toast";
+import CreateCabinForm from "./CreateCabinForm";
+import { useState } from "react";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,7 +47,7 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-function CabinRow({ cabin }: { cabin: CabinType }) {
+function CabinRow({ cabin }: { cabin: newCabinType }) {
   const {
     image,
     maxCapacity,
@@ -66,17 +68,26 @@ function CabinRow({ cabin }: { cabin: CabinType }) {
       toast.error(err.message);
     },
   });
+
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <TableRow role="row">
-      <Img src={image!} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice!)}</Price>
-      <Discount>{formatCurrency(discount!)}</Discount>
-      <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>
-        Delete
-      </button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image!} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice!)}</Price>
+        <Discount>{formatCurrency(discount!)}</Discount>
+        <div>
+          <button onClick={() => setIsOpen((show) => !show)}>edit</button>
+          <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>
+            Delete
+          </button>
+        </div>
+      </TableRow>
+
+      {isOpen && <CreateCabinForm />}
+    </>
   );
 }
 

@@ -63,10 +63,6 @@ function CreateCabinForm() {
               value: 1,
               message: "Capacity cannot be less than 1",
             },
-            max: {
-              value: 9,
-              message: "Capacity cannot be more than 9",
-            },
           })}
         />
       </FormRow>
@@ -93,10 +89,6 @@ function CreateCabinForm() {
           disabled={isCreating}
           defaultValue={0}
           {...register("discount", {
-            min: {
-              value: 0,
-              message: "Discount cannot be less than 0",
-            },
             required: "This field is required!",
             validate: (value) =>
               value! <= getValues().regularPrice! ||

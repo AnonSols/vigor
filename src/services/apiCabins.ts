@@ -1,8 +1,9 @@
 
 import { newCabinType } from "../../types";
 import supabase, { SUPABASE_URL } from "./supabase";
-
+// import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 export async function getCabins() {
+
  try{
    const { data, error } = await supabase.from("cabins").select("*");
 
@@ -15,21 +16,31 @@ return data;
 }
 }
 
-// type newCabinType = CabinType & {image:{name:string}}
-
-
-export async function createCabin(data:newCabinType) {
+export async function createEditCabin(data:newCabinType, id?:number) {
   try {
     
   const imageName = `${Math.random()}-${data.image.name}`.replaceAll('/',"");
 
-  const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
+  const hasMoviePath = data.image?.startsWith?.(SUPABASE_URL);
+  const imageUrl =  hasMoviePath ? data.image : `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
+  // const imageUrl =  `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
+
+
+  //create and edit the cabin
+
+  let query = supabase.from('cabins')
+
+  //create
+  if(!id) query = query.insert([{...data,image:imageUrl}]);
+
+  //edit 
+  if(id) query = query
+  .update({...data, image:imageUrl })
+  .eq('id', id)
   
-  //create the cabin
-  const { data:newCabin, error } = await supabase
-  .from('cabins')
-  .insert({...data,image:imageUrl})
-  .select()
+
+  
+  const {data:newCabin,error} = await query.select().single();
   
   
   if(error) {console.log(error)
@@ -51,7 +62,6 @@ const { error:storageError } = await supabase
   .delete()
   .eq('id', data.id)
 
-  console.log(storageError);
 
   throw new Error("An error uploading your image and cabin has been deleted.")
   }

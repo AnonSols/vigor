@@ -86,7 +86,7 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
         </div>
       </TableRow>
 
-      {isOpen && <CreateCabinForm />}
+      {isOpen && <CreateCabinForm cabin={cabin} />}
     </>
   );
 }

@@ -16,8 +16,8 @@ function CreateCabinForm({ cabin }: { cabin: newCabinType }) {
   const {
     register,
     handleSubmit,
-    reset,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<newCabinType>({
     defaultValues: isEditSession ? editValue : {},
@@ -32,8 +32,16 @@ function CreateCabinForm({ cabin }: { cabin: newCabinType }) {
     // mutate({ ...data, image: data.image[0] as string });
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession) return editCabin({ data: { ...data, image }, editId });
-    else return createCabin({ data: { ...data, image } });
+    if (isEditSession)
+      return editCabin(
+        { data: { ...data, image }, editId },
+        { onSuccess: () => reset() }
+      );
+    else
+      return createCabin(
+        { data: { ...data, image } },
+        { onSuccess: () => reset() }
+      );
   }
 
   return (

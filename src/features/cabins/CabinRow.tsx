@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { newCabinType } from "../../../types/cabinTypes";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabins } from "../../services/apiCabins";
-import { tableData } from "../../../types";
-import toast from "react-hot-toast";
+
 import CreateCabinForm from "./CreateCabinForm";
 import { useState } from "react";
+import { useDeleteCabin } from "./hooks/useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -43,11 +41,13 @@ const Price = styled.div`
 
 const Discount = styled.div`
   font-family: "Sono";
+  text-align: "center";
   font-weight: 500;
   color: var(--color-green-700);
 `;
 
 function CabinRow({ cabin }: { cabin: newCabinType }) {
+  const { isDeleting, deleteFn } = useDeleteCabin();
   const {
     image,
     maxCapacity,
@@ -57,18 +57,6 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
     id: cabinId,
   } = cabin;
 
-  const query = useQueryClient();
-  const { isLoading: isDeleting, mutate: deleteFn } = useMutation({
-    mutationFn: deleteCabins,
-    onSuccess: () => {
-      toast.success("Cabins Successfully deleted!");
-      query.invalidateQueries({ queryKey: [tableData.CABINS] });
-    },
-    onError: ({ err }: { err: { message: string } }) => {
-      toast.error(err.message);
-    },
-  });
-
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -77,7 +65,11 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice!)}</Price>
-        <Discount>{formatCurrency(discount!)}</Discount>
+        {discount! <= 0 ? (
+          <span>&mdash;</span>
+        ) : (
+          <Discount>{formatCurrency(discount!)}</Discount>
+        )}
         <div>
           <button onClick={() => setIsOpen((show) => !show)}>edit</button>
           <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>

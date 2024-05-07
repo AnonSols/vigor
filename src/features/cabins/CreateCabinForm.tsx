@@ -4,11 +4,10 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { apiCreateCabinType, newCabinType, tableData } from "../../../types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
+import { newCabinType } from "../../../types";
 import FormRow from "../../ui/FormRow";
+import { useCreateCabin } from "./hooks/useCreateCabin";
+import { useEditCabin } from "./hooks/useEditCabin";
 
 function CreateCabinForm({ cabin }: { cabin: newCabinType }) {
   const { id: editId, ...editValue } = cabin;
@@ -24,45 +23,17 @@ function CreateCabinForm({ cabin }: { cabin: newCabinType }) {
     defaultValues: isEditSession ? editValue : {},
   });
 
-  const query = useQueryClient();
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({ data, editId }: apiCreateCabinType) =>
-      createEditCabin(data, editId),
-    onSuccess: () => {
-      toast.success("Cabin is successfully edited!");
-
-      query.invalidateQueries({ queryKey: [tableData.CABINS] });
-      reset();
-    },
-    onError(error: Error) {
-      toast.error(error.message);
-    },
-  });
-
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: ({ data, editId }: apiCreateCabinType) =>
-      createEditCabin(data, editId),
-    onSuccess: () => {
-      toast.success("A new cabin is created!");
-
-      query.invalidateQueries({ queryKey: [tableData.CABINS] });
-      reset();
-    },
-    onError(error: Error) {
-      toast.error(error.message);
-    },
-  });
+  const { isCreating, createCabin } = useCreateCabin();
+  const { isEditing, editCabin } = useEditCabin();
 
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data: newCabinType) {
     // mutate({ ...data, image: data.image[0] as string });
-    const image =
-      typeof data.image === "string" ? data.image : (data.image[0] as string);
+    const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession) editCabin({ data: { ...data, image }, editId });
-
-    createCabin({ data: { ...data, image } });
+    if (isEditSession) return editCabin({ data: { ...data, image }, editId });
+    else return createCabin({ data: { ...data, image } });
   }
 
   return (

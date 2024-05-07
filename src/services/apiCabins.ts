@@ -1,7 +1,6 @@
-
-import { newCabinType } from "../../types";
+import {  newCabinType } from "../../types";
 import supabase, { SUPABASE_URL } from "./supabase";
-// import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
+
 export async function getCabins() {
 
  try{
@@ -23,12 +22,9 @@ export async function createEditCabin(data:newCabinType, id?:number) {
 
   const hasMoviePath = data.image?.startsWith?.(SUPABASE_URL);
   const imageUrl =  hasMoviePath ? data.image : `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
-  // const imageUrl =  `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
-
-
   //create and edit the cabin
 
-  let query = supabase.from('cabins')
+  let query = supabase.from('cabins') 
 
   //create
   if(!id) query = query.insert([{...data,image:imageUrl}]);
@@ -38,11 +34,9 @@ export async function createEditCabin(data:newCabinType, id?:number) {
   .update({...data, image:imageUrl })
   .eq('id', id)
   
+  
+  const {data:newCabin,error} = await query.select().single()
 
-  
-  const {data:newCabin,error} = await query.select().single();
-  
-  
   if(error) {console.log(error)
     throw new Error("An error occurerd creating a cabin.") 
 }

@@ -110,7 +110,7 @@ export type Database = {
           description: string | null
           discount: number | null
           id: number
-          image: string | null 
+          image: string | null
           maxCapacity: number | null
           name: string | null
           regularPrice: number | null

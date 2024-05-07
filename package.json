@@ -11,6 +11,7 @@
     "gen-types": "npx supabase gen types typescript --linked > types/supabase.ts"
   },
   "dependencies": {
+    "@supabase/postgrest-js": "^1.15.2",
     "@supabase/supabase-js": "^2.42.5",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",

@@ -11,10 +11,14 @@ export async function getSettings() {
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+
+type settingType = {
+  settings: string
+}
+export async function updateSetting({settings}:settingType) {
   const { data, error } = await supabase
     .from("settings")
-    .update(newSetting)
+    .update(settings)
     // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
     .eq("id", 1)
     .single();

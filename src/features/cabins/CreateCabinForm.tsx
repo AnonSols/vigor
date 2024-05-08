@@ -29,7 +29,6 @@ function CreateCabinForm({ cabin }: { cabin: newCabinType }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data: newCabinType) {
-    // mutate({ ...data, image: data.image[0] as string });
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession)

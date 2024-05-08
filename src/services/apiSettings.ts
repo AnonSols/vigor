@@ -12,10 +12,10 @@ export async function getSettings() {
 
 // We expect a newSetting object that looks like {setting: newValue}
 
-type settingType = {
-  settings: string
-}
-export async function updateSetting({settings}:settingType) {
+// type settingType = {
+//   settings: string
+// }
+export async function updateSetting(settings:{ [x: string]:  string}) {
   const { data, error } = await supabase
     .from("settings")
     .update(settings)

@@ -10,7 +10,10 @@ import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm() {
+type CabinProp = {
+  onCloseModal?: () => void;
+};
+function CreateCabinForm({ onCloseModal }: CabinProp) {
   const {
     register,
     handleSubmit,
@@ -19,7 +22,6 @@ function CreateCabinForm() {
     formState: { errors },
   } = useForm<newCabinType>();
 
-  console.log(errors);
   const query = useQueryClient();
   const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: ({ data }: apiCreateCabinType) => createEditCabin(data),
@@ -36,10 +38,14 @@ function CreateCabinForm() {
 
   function onSubmit(data: newCabinType) {
     mutate({ data: { ...data, image: data.image[0] as string } });
+    onCloseModal?.();
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      type={onCloseModal ? "modal" : "regular"}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <FormRow label="Cabin name" error={`${errors?.name?.message}`}>
         <Input
           type="text"
@@ -117,7 +123,11 @@ function CreateCabinForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          onClick={() => onCloseModal?.()}
+          variation="secondary"
+          type="reset"
+        >
           Cancel
         </Button>
         <Button disabled={isCreating}>Add new cabin</Button>

@@ -8,8 +8,14 @@ const StyledTable = styled.div`
   border-radius: 7px;
   overflow: hidden;
 `;
+StyledTable;
 
-const CommonRow = styled.div`
+type CommonRowType = {
+  props: {
+    columns: string;
+  };
+};
+const CommonRow = styled.div<CommonRowType>`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
   column-gap: 2.4rem;
@@ -58,3 +64,15 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `;
+
+Empty;
+Footer;
+StyledBody;
+StyledHeader;
+StyledRow;
+
+function Table() {
+  return <>Hello</>;
+}
+
+export default Table;

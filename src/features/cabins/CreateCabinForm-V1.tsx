@@ -37,8 +37,15 @@ function CreateCabinForm({ onCloseModal }: CabinProp) {
   });
 
   function onSubmit(data: newCabinType) {
-    mutate({ data: { ...data, image: data.image[0] as string } });
-    onCloseModal?.();
+    mutate(
+      { data: { ...data, image: data.image[0] as string } },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      }
+    );
   }
 
   return (

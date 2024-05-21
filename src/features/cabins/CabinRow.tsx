@@ -3,10 +3,15 @@ import { newCabinType } from "../../../types/cabinTypes";
 import { formatCurrency } from "../../utils/helpers";
 
 import CreateCabinForm from "./CreateCabinForm";
-import { useState } from "react";
 import { useDeleteCabin } from "./hooks/useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useCreateCabin } from "./hooks/useCreateCabin";
+import Modal from "../../ui/Modal";
+// import { HiDotsVertical } from "react-icons/hi";
+// import Row from "../../ui/Row";
+// import { HiDotsVertical } from "react-icons/hi";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+// import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -50,7 +55,7 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }: { cabin: newCabinType }) {
   const { isDeleting, deleteFn } = useDeleteCabin();
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const { createCabin, isCreating } = useCreateCabin();
 
   const {
@@ -86,20 +91,84 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
         ) : (
           <Discount>{formatCurrency(discount!)}</Discount>
         )}
+
         <div>
           <button disabled={isCreating} onClick={handleDuplicate}>
             <HiSquare2Stack />
           </button>
-          <button onClick={() => setIsOpen((show) => !show)}>
-            <HiPencil />
-          </button>
-          <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>
-            <HiTrash />
-          </button>
+          <Modal>
+            <Modal.Open opens="pencil">
+              <button>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+
+            <Modal.Window name="pencil">
+              <CreateCabinForm cabin={cabin} />
+            </Modal.Window>
+          </Modal>
+
+          <Modal>
+            <Modal.Open opens="delete">
+              <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                onConfirm={() => deleteFn(cabinId)}
+                disabled={isDeleting}
+                resourceName="cabins"
+              />
+            </Modal.Window>
+          </Modal>
         </div>
+        {/* <Modal>
+          <Modal.Open opens="icon">
+            <HiDotsVertical />
+          </Modal.Open>
+          <Modal.Window name="icon">
+            <Row type="vertical">
+              <button disabled={isCreating} onClick={handleDuplicate}>
+                <HiSquare2Stack />
+              </button>
+              <Modal>
+                <Modal.Open opens="pencil">
+                  <button>
+                    <HiPencil />
+                  </button>
+                </Modal.Open>
+
+                <Modal.Window name="pencil">
+                  <CreateCabinForm cabin={cabin} />
+                </Modal.Window>
+              </Modal>
+
+              <Modal>
+                <Modal.Open opens="delete">
+                  <button
+                    disabled={isDeleting}
+                    onClick={() => deleteFn(cabinId)}
+                  >
+                    <HiTrash />
+                  </button>
+                </Modal.Open>
+
+                <Modal.Window name="delete">
+                  <ConfirmDelete
+                    onConfirm={() => deleteFn(cabinId)}
+                    disabled={isDeleting}
+                    resourceName="cabins"
+                  />
+                </Modal.Window>
+              </Modal>
+            </Row>
+          </Modal.Window>
+        </Modal> */}
       </TableRow>
 
-      {isOpen && <CreateCabinForm cabin={cabin} />}
+      {/* {isOpen && <CreateCabinForm cabin={cabin} />} */}
     </>
   );
 }

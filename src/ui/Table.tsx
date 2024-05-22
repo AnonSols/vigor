@@ -1,3 +1,5 @@
+import { createContext, ReactNode, useContext } from "react";
+// import { render } from "react-dom";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
@@ -8,13 +10,10 @@ const StyledTable = styled.div`
   border-radius: 7px;
   overflow: hidden;
 `;
-StyledTable;
 
-type CommonRowType = {
-  props: {
-    columns: string;
-  };
-};
+interface CommonRowType {
+  columns?: string;
+}
 const CommonRow = styled.div<CommonRowType>`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
@@ -66,13 +65,64 @@ const Empty = styled.p`
 `;
 
 Empty;
-Footer;
-StyledBody;
-StyledHeader;
-StyledRow;
 
-function Table() {
-  return <>Hello</>;
+interface childrenType {
+  children: ReactNode;
+  role?: string;
+}
+type TableContextProp = {
+  column: string;
+};
+const TableContext = createContext<TableContextProp | undefined>(undefined);
+
+function Table({ children, column }: childrenType & { column: string }) {
+  return (
+    <TableContext.Provider value={{ column }}>
+      <StyledTable role="table"> {children} </StyledTable>
+    </TableContext.Provider>
+  );
 }
 
+function TableHeader({ children }: childrenType) {
+  const { column } = useTableContext();
+  return (
+    <StyledHeader role="row" as="header" columns={column}>
+      {children}
+    </StyledHeader>
+  );
+}
+function TableBody({
+  data,
+  render,
+}: {
+  data: unknown[] | undefined;
+  render: (cabin: unknown) => ReactNode;
+}) {
+  if (data?.length === 0) return <Empty>No data at the moment!</Empty>;
+  return <StyledBody>{data?.map(render)}</StyledBody>;
+}
+
+function TableRow({ children }: childrenType) {
+  const { column } = useTableContext();
+
+  return (
+    <StyledRow role="row" columns={column}>
+      {children}
+    </StyledRow>
+  );
+}
+
+Table.header = TableHeader;
+Table.footer = Footer;
+Table.body = TableBody;
+Table.row = TableRow;
+
+function useTableContext() {
+  const tableContext = useContext(TableContext);
+
+  if (tableContext === undefined)
+    throw new Error("Context cannot be used outside of a provider!");
+
+  return tableContext;
+}
 export default Table;

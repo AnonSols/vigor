@@ -134,7 +134,7 @@ function Toggle({ id }: { id: number }) {
     if (e.target instanceof Element)
       rect = e.target.closest("button")?.getBoundingClientRect();
     setPosition({
-      x: rect && window.innerWidth - rect?.width - rect?.x - 70,
+      x: rect && window.innerWidth - rect?.width - rect?.x - 120,
       y: rect && rect?.height + rect?.y + 8,
     });
 
@@ -151,8 +151,8 @@ function Toggle({ id }: { id: number }) {
   );
 }
 function List({ id, children }: MenusChildren & { id: number }) {
-  const { isOpenedId } = useMenuContext();
-  const { ref } = useHandleClick(close, true);
+  const { isOpenedId, close } = useMenuContext();
+  const { ref } = useHandleClick(close);
   const { position } = useMenuContext();
   if (isOpenedId !== id) return null;
   return createPortal(

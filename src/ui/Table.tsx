@@ -92,13 +92,13 @@ function TableHeader({ children }: childrenType) {
   );
 }
 function TableBody({
-  data,
+  data = [],
   render,
 }: {
   data: unknown[] | undefined;
   render: (cabin: unknown) => ReactNode;
 }) {
-  if (data?.length === 0) return <Empty>No data at the moment!</Empty>;
+  if (data?.length === 0) return <Empty>No data to show at the moment!</Empty>;
   return <StyledBody>{data?.map(render)}</StyledBody>;
 }
 

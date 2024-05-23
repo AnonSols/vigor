@@ -12,6 +12,7 @@ import Modal from "../../ui/Modal";
 // import { HiDotsVertical } from "react-icons/hi";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 // import ConfirmDelete from "../../ui/ConfirmDelete";
 
 // const TableRow = styled.div`
@@ -94,9 +95,6 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
         )}
 
         <div>
-          <button disabled={isCreating} onClick={handleDuplicate}>
-            <HiSquare2Stack />
-          </button>
           <Modal>
             <Modal.Open opens="pencil">
               <button>
@@ -124,6 +122,28 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
               />
             </Modal.Window>
           </Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={cabin.id} />
+
+            <Menus.List id={cabin.id}>
+              <li>
+                <Menus.Button icon={<HiPencil />}> Edit</Menus.Button>
+              </li>
+              <li>
+                <Menus.Button
+                  loading={isCreating}
+                  click={handleDuplicate}
+                  icon={<HiSquare2Stack />}
+                >
+                  <span>Duplicate</span>
+                </Menus.Button>
+              </li>
+
+              <li>
+                <Menus.Button icon={<HiTrash />}> Delete</Menus.Button>
+              </li>
+            </Menus.List>
+          </Menus.Menu>
         </div>
         {/* <Modal>
           <Modal.Open opens="icon">

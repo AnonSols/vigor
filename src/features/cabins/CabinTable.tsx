@@ -4,6 +4,7 @@ import CabinRow from "./CabinRow";
 import { useCabin } from "./hooks/useCabins";
 import Table from "../../ui/Table";
 import { newCabinType } from "../../../types";
+import Menus from "../../ui/Menus";
 // import { useEffect, useState } from "react";
 
 // const TableHeader = styled.header`
@@ -26,27 +27,29 @@ function CabinTable() {
 
   if (isLoading) return <Spinner />;
   return (
-    <Table column="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-      <Table.header>
-        <div></div>
-        <div>Cabin</div>
-        <div>Capicty</div>
-        <div>Price</div>
-        <div>Discount</div>
-        <div></div>
-      </Table.header>
-      <Table.body
-        data={cabins}
-        render={(cabin: unknown) => {
-          const newCabin = cabin as newCabinType;
+    <Menus>
+      <Table column="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+        <Table.header>
+          <div></div>
+          <div>Cabin</div>
+          <div>Capicty</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </Table.header>
+        <Table.body
+          data={cabins}
+          render={(cabin: unknown) => {
+            const newCabin = cabin as newCabinType;
 
-          return <CabinRow cabin={newCabin} key={newCabin.id} />;
-        }}
-      />
-      {/* {cabins?.map((cabin) => (
+            return <CabinRow cabin={newCabin} key={newCabin.id} />;
+          }}
+        />
+        {/* {cabins?.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))} */}
-    </Table>
+      </Table>
+    </Menus>
   );
 }
 

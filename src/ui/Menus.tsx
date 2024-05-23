@@ -1,4 +1,14 @@
+import {
+  cloneElement,
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import styled from "styled-components";
+import { useHandleClick } from "../hooks/useHandleClick";
+import { HiEllipsisVertical } from "react-icons/hi2";
+import { createPortal } from "react-dom";
 
 const StyledMenu = styled.div`
   display: flex;
@@ -25,15 +35,21 @@ const StyledToggle = styled.button`
   }
 `;
 
-const StyledList = styled.ul`
+interface StyledListProp {
+  position: {
+    x: number | undefined;
+    y: number | undefined;
+  };
+}
+const StyledList = styled.ul<StyledListProp>`
   position: fixed;
 
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
-
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  list-style-type: none;
+  right: ${(props) => props.position?.x}px;
+  top: ${(props) => props.position?.y}px;
 `;
 
 const StyledButton = styled.button`
@@ -60,3 +76,123 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+interface MenusChildren {
+  children: ReactNode;
+}
+interface MenusContextProp {
+  isOpenedId: number | undefined;
+  open: React.Dispatch<React.SetStateAction<number | undefined>>;
+  close(): void;
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      x: number | undefined;
+
+      y: number | undefined;
+    }>
+  >;
+  position: {
+    x: number | undefined;
+    y: number | undefined;
+  };
+}
+interface positionProp {
+  x: number | undefined;
+  y: number | undefined;
+}
+
+const MenusContext = createContext<MenusContextProp | undefined>(undefined);
+
+const Menus = ({ children }: MenusChildren) => {
+  const [isOpenedId, setIsOpenId] = useState<number | undefined>(undefined);
+  const [position, setPosition] = useState<positionProp>({
+    x: undefined,
+    y: undefined,
+  });
+
+  const open = setIsOpenId;
+  const close = () => setIsOpenId(undefined);
+
+  return (
+    <MenusContext.Provider
+      value={{ position, setPosition, isOpenedId, open, close }}
+    >
+      {" "}
+      <StyledMenu>{children}</StyledMenu>
+    </MenusContext.Provider>
+  );
+};
+
+function Menu({ children }: MenusChildren) {
+  return <div>{children}</div>;
+}
+function Toggle({ id }: { id: number }) {
+  const { open, isOpenedId, close } = useMenuContext();
+  const { setPosition } = useMenuContext();
+  function handleClick(e: MouseEvent) {
+    let rect: DOMRect | undefined;
+    if (e.target instanceof Element)
+      rect = e.target.closest("button")?.getBoundingClientRect();
+    setPosition({
+      x: rect && window.innerWidth - rect?.width - rect?.x - 70,
+      y: rect && rect?.height + rect?.y + 8,
+    });
+
+    isOpenedId === undefined || isOpenedId !== id ? open(id) : close();
+  }
+
+  return cloneElement(
+    <StyledToggle>
+      <HiEllipsisVertical />
+    </StyledToggle>,
+    {
+      onClick: handleClick,
+    }
+  );
+}
+function List({ id, children }: MenusChildren & { id: number }) {
+  const { isOpenedId } = useMenuContext();
+  const { ref } = useHandleClick(close, true);
+  const { position } = useMenuContext();
+  if (isOpenedId !== id) return null;
+  return createPortal(
+    <StyledList ref={ref} as="div" position={position}>
+      {children}
+    </StyledList>,
+    document.body
+  );
+}
+function Button({
+  children,
+  icon,
+  loading,
+  click,
+}: MenusChildren & { icon: ReactNode; click?: () => void; loading?: boolean }) {
+  const { close } = useMenuContext();
+  function handleClick() {
+    click?.();
+    close();
+  }
+  return (
+    <StyledButton disabled={loading && loading} onClick={handleClick}>
+      {icon} {children}
+    </StyledButton>
+  );
+}
+
+Menus.Menu = Menu;
+Menus.Toggle = Toggle;
+Menus.List = List;
+Menus.Button = Button;
+
+function useMenuContext() {
+  const context = useContext(MenusContext);
+
+  if (context === undefined)
+    throw new Error("Context cannot be used outside of a provider");
+
+  return context;
+}
+
+useMenuContext;
+export default Menus;

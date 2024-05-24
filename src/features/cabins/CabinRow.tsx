@@ -96,40 +96,16 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
 
         <div>
           <Modal>
-            <Modal.Open opens="pencil">
-              <button>
-                <HiPencil />
-              </button>
-            </Modal.Open>
+            <Menus.Menu>
+              <Menus.Toggle id={cabin.id} />
 
-            <Modal.Window name="pencil">
-              <CreateCabinForm cabin={cabin} />
-            </Modal.Window>
-          </Modal>
+              <Menus.List id={cabin.id}>
+                <Modal.Open opens="pencil">
+                  <span>
+                    <Menus.Button icon={<HiPencil />}> Edit</Menus.Button>
+                  </span>
+                </Modal.Open>
 
-          <Modal>
-            <Modal.Open opens="delete">
-              <button disabled={isDeleting} onClick={() => deleteFn(cabinId)}>
-                <HiTrash />
-              </button>
-            </Modal.Open>
-
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                onConfirm={() => deleteFn(cabinId)}
-                disabled={isDeleting}
-                resourceName="cabins"
-              />
-            </Modal.Window>
-          </Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={cabin.id} />
-
-            <Menus.List id={cabin.id}>
-              <li>
-                <Menus.Button icon={<HiPencil />}> Edit</Menus.Button>
-              </li>
-              <li>
                 <Menus.Button
                   loading={isCreating}
                   click={handleDuplicate}
@@ -137,13 +113,25 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
                 >
                   <span>Duplicate</span>
                 </Menus.Button>
-              </li>
 
-              <li>
-                <Menus.Button icon={<HiTrash />}> Delete</Menus.Button>
-              </li>
-            </Menus.List>
-          </Menus.Menu>
+                <Modal.Open opens="delete">
+                  <span>
+                    <Menus.Button icon={<HiTrash />}> Delete</Menus.Button>
+                  </span>
+                </Modal.Open>
+              </Menus.List>
+              <Modal.Window name="pencil">
+                <CreateCabinForm cabin={cabin} />
+              </Modal.Window>
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  onConfirm={() => deleteFn(cabinId)}
+                  disabled={isDeleting}
+                  resourceName="cabins"
+                />
+              </Modal.Window>
+            </Menus.Menu>
+          </Modal>
         </div>
         {/* <Modal>
           <Modal.Open opens="icon">

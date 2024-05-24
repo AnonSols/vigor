@@ -10,7 +10,7 @@ import { useHandleClick } from "../hooks/useHandleClick";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 
-const StyledMenu = styled.div`
+const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -118,14 +118,11 @@ const Menus = ({ children }: MenusChildren) => {
       value={{ position, setPosition, isOpenedId, open, close }}
     >
       {" "}
-      <StyledMenu>{children}</StyledMenu>
+      {children}{" "}
     </MenusContext.Provider>
   );
 };
 
-function Menu({ children }: MenusChildren) {
-  return <div>{children}</div>;
-}
 function Toggle({ id }: { id: number }) {
   const { open, isOpenedId, close } = useMenuContext();
   const { setPosition } = useMenuContext();
@@ -134,7 +131,7 @@ function Toggle({ id }: { id: number }) {
     if (e.target instanceof Element)
       rect = e.target.closest("button")?.getBoundingClientRect();
     setPosition({
-      x: rect && window.innerWidth - rect?.width - rect?.x - 120,
+      x: rect && window.innerWidth - rect?.width - rect?.x,
       y: rect && rect?.height + rect?.y + 8,
     });
 
@@ -175,7 +172,9 @@ function Button({
   }
   return (
     <StyledButton disabled={loading && loading} onClick={handleClick}>
-      {icon} {children}
+      <span>
+        {icon} {children}
+      </span>
     </StyledButton>
   );
 }

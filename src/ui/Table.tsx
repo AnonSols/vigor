@@ -64,8 +64,6 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-Empty;
-
 interface childrenType {
   children: ReactNode;
   role?: string;

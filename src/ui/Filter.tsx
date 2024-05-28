@@ -40,18 +40,29 @@ const FilterButton = styled.button<FilterButtonInterface>`
 
 interface FilterInterface {
   filteredCabin: Array<{ name: string; label: string }>;
+  filteredField: string;
 }
-const Filter = ({ filteredCabin }: FilterInterface) => {
-  const [params, setParams] = useSearchParams();
+const Filter = ({ filteredCabin, filteredField }: FilterInterface) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   function handleClick(name: string) {
-    params.set("discount", name);
-    setParams(params);
+    searchParams.set(filteredField, name);
+    setSearchParams(searchParams);
   }
+
+  const [searchParam] = useSearchParams();
+
+  const currentFilter = searchParam.get(filteredField) || "all";
   return (
     <StyledFilter>
       {filteredCabin.map(({ name, label }) => (
         <>
-          <FilterButton onClick={() => handleClick(name)}>{label}</FilterButton>
+          <FilterButton
+            active={currentFilter === name}
+            onClick={() => handleClick(name)}
+            disabled={currentFilter === name}
+          >
+            {label}
+          </FilterButton>
         </>
       ))}
     </StyledFilter>

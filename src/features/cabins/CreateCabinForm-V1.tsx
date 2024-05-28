@@ -102,7 +102,6 @@ function CreateCabinForm({ onCloseModal }: CabinProp) {
           disabled={isCreating}
           defaultValue={0}
           {...register("discount", {
-            required: "This field is required!",
             validate: (value) =>
               value! <= getValues().regularPrice! ||
               "Discount cannot be greater than the regular price",

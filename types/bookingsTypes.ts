@@ -6,7 +6,7 @@ export type BookingType = Database['public']['Tables']['bookings']['Row']
 
 
 export type ModifiedBookingRowInterface ={
-  booking: BookingType  & { numNights: number;
+  booking:BookingType & { numNights: number;
     guests: { fullName: string; email: string };
     cabins: newCabinType;
     startDate: string;

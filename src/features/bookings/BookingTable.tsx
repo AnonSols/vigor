@@ -3,12 +3,18 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import {
   BookingType,
-  ModifiedBookingRowInterface,
+  // BookingType,
   // ModifiedBookingRowInterface,
 } from "../../../types/bookingsTypes";
+import { useBooking } from "./hooks/useBooking";
+import Spinner from "../../ui/Spinner";
+import { newCabinType } from "../../../types";
 
 function BookingTable() {
-  const bookings: BookingType[] = [];
+  // const bookings: BookingType[] = [];
+  const { data: bookings, isLoading } = useBooking();
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Menus>
@@ -23,15 +29,18 @@ function BookingTable() {
         </Table.header>
 
         <Table.body
-          data={bookings}
+          data={bookings as unknown[] | undefined}
           render={(currentComponent: unknown) => {
-            const newBooking = currentComponent as ModifiedBookingRowInterface;
-            return (
-              <BookingRow
-                key={newBooking.booking.id}
-                booking={newBooking.booking}
-              />
-            );
+            const newBooking = currentComponent as BookingType & {
+              numNights: number;
+              guests: { fullName: string; email: string };
+              cabins: newCabinType;
+              startDate: string;
+              endDate: string;
+              status: "Unconfirmed" | "Checked_in" | "Checked_out";
+              totalPrice: number;
+            };
+            return <BookingRow key={newBooking.id} booking={newBooking} />;
           }}
         />
       </Table>

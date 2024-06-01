@@ -6,11 +6,8 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import {
-  // BookingType,
-  ModifiedBookingRowInterface,
-} from "../../../types/bookingsTypes";
-// import { newCabinType } from "../../../types";
+import { BookingType } from "../../../types/bookingsTypes";
+import { newCabinType } from "../../../types";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -39,29 +36,36 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-function BookingRow({
-  booking: {
-    id: bookingId,
-    // created_at,
+type BookingRowType = {
+  booking: BookingType & {
+    numNights: number;
+    guests: { fullName: string; email: string };
+    cabins: newCabinType;
+    startDate: string;
+    endDate: string;
+    status: "Unconfirmed" | "Checked_in" | "Checked_out";
+    totalPrice: number;
+  };
+};
+type Status = "Unconfirmed" | "Checked_in" | "Checked_out";
+function BookingRow({ booking }: BookingRowType) {
+  const {
     startDate,
     endDate,
-    numNights,
-    // numGuests,
+    status: bookingStatus,
     totalPrice,
-    status,
-    guests: { fullName: guestName, email },
     cabins: { name: cabinName },
-  },
-}: ModifiedBookingRowInterface) {
-  type Status = "Unconfirmed" | "Checked_in" | "Checked_out";
+    guests: { fullName: guestName, email },
+    numNights,
+  } = booking;
+
   const statusToTagName: Record<Status, string> = {
     Unconfirmed: "blue",
     Checked_in: "green",
     Checked_out: "silver",
   };
 
-  console.log(bookingId);
-
+  const status = bookingStatus || "Unconfirmed";
   return (
     <Table.row>
       <Cabin>{cabinName}</Cabin>
@@ -84,7 +88,7 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>{status.replace("_", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
     </Table.row>

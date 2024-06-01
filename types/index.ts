@@ -5,6 +5,6 @@ export * from './settingsTypes'
 export enum tableData {
 CABINS='cabins',
 BOOKINGS='bookings',
-SETTINGS='settings'
-
+SETTINGS='settings',
+GUESTS='guests'
 }

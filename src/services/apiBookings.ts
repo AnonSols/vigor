@@ -1,15 +1,16 @@
+import { tableData } from "../../types";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings() {
-  const {data, error} = await supabase.from("bookings").select("*");
+  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`);
 
   if(error) {
     console.log(error);
     throw new Error("Bookings couldn't be loaded");
 
-    return data;
   }
+  return data;
 }
 export async function getBooking(id:number) {
   const { data, error } = await supabase

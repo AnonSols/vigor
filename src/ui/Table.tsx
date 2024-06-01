@@ -94,7 +94,7 @@ function TableBody({
   render,
 }: {
   data: unknown[] | undefined;
-  render: (cabin: unknown) => ReactNode;
+  render: (currentComponent: unknown) => ReactNode;
 }) {
   if (data?.length === 0) return <Empty>No data to show at the moment!</Empty>;
   return <StyledBody>{data?.map(render)}</StyledBody>;

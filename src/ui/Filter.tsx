@@ -39,10 +39,10 @@ const FilterButton = styled.button<FilterButtonInterface>`
 `;
 
 interface FilterInterface {
-  filteredCabin: Array<{ name: string; label: string }>;
+  options: Array<{ name: string; label: string }>;
   filteredField: string;
 }
-const Filter = ({ filteredCabin, filteredField }: FilterInterface) => {
+const Filter = ({ options, filteredField }: FilterInterface) => {
   const [searchParams, setSearchParams] = useSearchParams();
   function handleClick(name: string) {
     searchParams.set(filteredField, name);
@@ -54,7 +54,7 @@ const Filter = ({ filteredCabin, filteredField }: FilterInterface) => {
   const currentFilter = searchParam.get(filteredField) || "all";
   return (
     <StyledFilter>
-      {filteredCabin.map(({ name, label }) => (
+      {options.map(({ name, label }) => (
         <>
           <FilterButton
             active={currentFilter === name}

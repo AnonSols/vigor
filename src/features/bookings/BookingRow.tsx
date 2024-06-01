@@ -6,6 +6,11 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import {
+  // BookingType,
+  ModifiedBookingRowInterface,
+} from "../../../types/bookingsTypes";
+// import { newCabinType } from "../../../types";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -37,25 +42,28 @@ const Amount = styled.div`
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
+    // created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
+    // numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   },
-}) {
-  const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+}: ModifiedBookingRowInterface) {
+  type Status = "Unconfirmed" | "Checked_in" | "Checked_out";
+  const statusToTagName: Record<Status, string> = {
+    Unconfirmed: "blue",
+    Checked_in: "green",
+    Checked_out: "silver",
   };
 
+  console.log(bookingId);
+
   return (
-    <Table.Row>
+    <Table.row>
       <Cabin>{cabinName}</Cabin>
 
       <Stacked>
@@ -79,7 +87,7 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
-    </Table.Row>
+    </Table.row>
   );
 }
 

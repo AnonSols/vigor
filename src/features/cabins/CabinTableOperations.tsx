@@ -19,7 +19,7 @@ const CabinTableOperations = () => {
   ];
   return (
     <TableOperations>
-      <Filter filteredField="discount" filteredCabin={FilterCabin} />
+      <Filter filteredField="discount" options={FilterCabin} />
 
       <SortBy options={SortCabin} />
     </TableOperations>

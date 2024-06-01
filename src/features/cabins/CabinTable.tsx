@@ -63,8 +63,8 @@ function CabinTable() {
         </Table.header>
         <Table.body
           data={sortedCabins}
-          render={(cabin: unknown) => {
-            const newCabin = cabin as newCabinType;
+          render={(currentComponent: unknown) => {
+            const newCabin = currentComponent as newCabinType;
 
             return <CabinRow cabin={newCabin} key={newCabin.id} />;
           }}

@@ -40,6 +40,7 @@ function BookingTable() {
               status: "Unconfirmed" | "Checked_in" | "Checked_out";
               totalPrice: number;
             };
+
             return <BookingRow key={newBooking.id} booking={newBooking} />;
           }}
         />

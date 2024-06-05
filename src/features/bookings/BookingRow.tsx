@@ -39,15 +39,15 @@ const Amount = styled.div`
 type BookingRowType = {
   booking: BookingType & {
     numNights: number;
-    guests: { fullName: string; email: string };
+    guests: { name: string; email: string };
     cabins: newCabinType;
     startDate: string;
     endDate: string;
-    status: "Unconfirmed" | "Checked_in" | "Checked_out";
+    status: "Unconfirmed" | "Checked-in" | "Checked-out";
     totalPrice: number;
   };
 };
-type Status = "Unconfirmed" | "Checked_in" | "Checked_out";
+type Status = "Unconfirmed" | "Checked-in" | "Checked-out";
 function BookingRow({ booking }: BookingRowType) {
   const {
     startDate,
@@ -55,14 +55,14 @@ function BookingRow({ booking }: BookingRowType) {
     status: bookingStatus,
     totalPrice,
     cabins: { name: cabinName },
-    guests: { fullName: guestName, email },
+    guests: { name: guestName, email },
     numNights,
   } = booking;
 
   const statusToTagName: Record<Status, string> = {
     Unconfirmed: "blue",
-    Checked_in: "green",
-    Checked_out: "silver",
+    "Checked-in": "green",
+    "Checked-out": "silver",
   };
 
   const status = bookingStatus || "Unconfirmed";
@@ -88,7 +88,7 @@ function BookingRow({ booking }: BookingRowType) {
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("_", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
     </Table.row>

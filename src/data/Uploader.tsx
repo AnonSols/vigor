@@ -63,38 +63,38 @@ async function createBookings() {
     const cabin = cabins.at(booking.cabinId - 1);
     const numNights = subtractDates(booking.endDate, booking.startDate);
     const cabinPrice = cabin && numNights * cabin.regularPrice - cabin.discount;
-    const extrasPrice = booking.hasBreakfast
+    const extraPrice = booking.hasBreakfast
       ? numNights * 15 * booking.numGuests
       : 0; // hardcoded breakfast price
-    const totalPrice = cabinPrice && cabinPrice + extrasPrice;
-
+    const totalPrice = cabinPrice && cabinPrice + extraPrice;
+    // console.log(booking);
     let status;
 
     if (
       isPast(new Date(booking.endDate)) &&
       !isToday(new Date(booking.endDate))
     )
-      status = "checked-out";
+      status = "Checked-out";
     if (
       isFuture(new Date(booking.startDate)) ||
       isToday(new Date(booking.startDate))
     )
-      status = "unconfirmed";
+      status = "Unconfirmed";
     if (
       (isFuture(new Date(booking.endDate)) ||
         isToday(new Date(booking.endDate))) &&
       isPast(new Date(booking.startDate)) &&
       !isToday(new Date(booking.startDate))
     )
-      status = "checked-in";
+      status = "Checked-in";
 
     return {
       ...booking,
       numNights,
       cabinPrice,
-      extrasPrice,
+      extraPrice,
       totalPrice,
-      guestId: allGuestIds && allGuestIds.at(booking.guestId - 1),
+      guestsId: allGuestIds && allGuestIds.at(booking.guestsId - 1),
       cabinId: allCabinIds && allCabinIds.at(booking.cabinId - 1),
       status,
     };

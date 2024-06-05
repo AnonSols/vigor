@@ -33,11 +33,11 @@ function BookingTable() {
           render={(currentComponent: unknown) => {
             const newBooking = currentComponent as BookingType & {
               numNights: number;
-              guests: { fullName: string; email: string };
+              guests: { name: string; email: string };
               cabins: newCabinType;
               startDate: string;
               endDate: string;
-              status: "Unconfirmed" | "Checked_in" | "Checked_out";
+              status: "Unconfirmed" | "Checked-in" | "Checked-out";
               totalPrice: number;
             };
 

@@ -57,6 +57,7 @@ async function createBookings() {
     .order("id");
   const allCabinIds = cabinsIds && cabinsIds.map((cabin) => cabin.id);
 
+  //finalBooking
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
     const cabin = cabins.at(booking.cabinId - 1);
@@ -68,6 +69,7 @@ async function createBookings() {
     const totalPrice = cabinPrice && cabinPrice + extrasPrice;
 
     let status;
+
     if (
       isPast(new Date(booking.endDate)) &&
       !isToday(new Date(booking.endDate))

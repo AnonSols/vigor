@@ -33,7 +33,7 @@ export async function getBookingsAfterDate(date:string) {
     .from("bookings")
     .select("created_at, totalPrice, extrasPrice")
     .gte("created_at", date)
-    .lte("created_at", getToday({ end: true }));
+    .lte("created_at", getToday({end:true}));
 
   if (error) {
     console.error(error);

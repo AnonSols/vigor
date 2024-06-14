@@ -5,6 +5,14 @@ export type BookingType = Database['public']['Tables']['bookings']['Row']
 
 
 
+interface filterProtocol {
+    name:string,
+    label:string
+}
+
+export type filterNameType = filterProtocol | null;
+
+
 export type ModifiedBookingRowInterface ={
   booking:BookingType & { numNights: number;
     guests: { name: string; email: string };

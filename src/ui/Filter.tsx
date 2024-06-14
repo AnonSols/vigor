@@ -42,6 +42,7 @@ interface FilterInterface {
   options: Array<{ name: string; label: string }>;
   filteredField: string;
 }
+
 const Filter = ({ options, filteredField }: FilterInterface) => {
   const [searchParams, setSearchParams] = useSearchParams();
   function handleClick(name: string) {

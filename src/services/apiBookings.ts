@@ -1,9 +1,13 @@
 import { tableData } from "../../types";
+import { filterNameType } from "../../types/bookingsTypes";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings() {
-  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`);
+
+export async function getBookings(filter:filterNameType) {
+ 
+  
+  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`).eq(`${filter?.name}`,filter?.label)
 
   if(error) {
     console.log(error);
@@ -98,7 +102,7 @@ export async function updateBooking(id:number, obj:{name:string}) {
 
 export async function deleteBooking(id:number) {
   // REMEMBER RLS POLICIES
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+  const { data, error } = await supabase.from("bookings").delete().eq("id", id);  
 
   if (error) {
     console.error(error);

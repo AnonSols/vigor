@@ -5,12 +5,11 @@ export type BookingType = Database['public']['Tables']['bookings']['Row']
 
 
 
-interface filterProtocol {
-    name:string,
-    label:string
-}
-
-export type filterNameType = filterProtocol | null;
+ export type filterNameType =  {
+  filter:{name:string,
+  label:string|null}
+} 
+// export type filterNameType =  Filter ;
 
 
 export type ModifiedBookingRowInterface ={

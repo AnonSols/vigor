@@ -1,13 +1,13 @@
 import { tableData } from "../../types";
-import { filterNameType } from "../../types/bookingsTypes";
+// import { filterNameType } from "../../types/bookingsTypes";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
-export async function getBookings(filter:filterNameType) {
- 
+export async function getBookings({filter}:{filter:{name:string,label:string|null}}) {
   
-  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`).eq(`${filter?.name}`,filter?.label)
+  
+  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`).eq(`${filter?.name}`,filter?.label);
 
   if(error) {
     console.log(error);
@@ -33,7 +33,7 @@ export async function getBooking(id:number) {
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
 export async function getBookingsAfterDate(date:string) {
-  const { data, error } = await supabase
+  const { data, error  } = await supabase
     .from("bookings")
     .select("created_at, totalPrice, extrasPrice")
     .gte("created_at", date)

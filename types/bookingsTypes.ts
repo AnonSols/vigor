@@ -4,13 +4,7 @@ import { Database } from "./supabase";
 export type BookingType = Database['public']['Tables']['bookings']['Row']
 
 
-
- export type filterNameType =  {
-  filter:{name:string,
-  label:string|null}
-} 
-// export type filterNameType =  Filter ;
-
+export type filterProp = {filter:{name:string,label:string|null}}
 
 export type ModifiedBookingRowInterface ={
   booking:BookingType & { numNights: number;
@@ -18,7 +12,7 @@ export type ModifiedBookingRowInterface ={
     cabins: newCabinType;
     startDate: string;
     endDate: string;
-    status: "Unconfirmed" | "Checked_in" | "Checked_out";
+    status: "unconfirmed" | "checked_in" | "checked_out";
     totalPrice: number;}
 }
 

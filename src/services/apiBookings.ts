@@ -1,13 +1,24 @@
-import { tableData } from "../../types";
-// import { filterNameType } from "../../types/bookingsTypes";
-import { getToday } from "../utils/helpers";
+// import { tableData } from "../../types";
+import { filterProp } from "../../types/bookingsTypes";
+import { capitalizeFirstLetter, getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
-export async function getBookings({filter}:{filter:{name:string,label:string|null}}) {
-  
-  
-  const {data, error} = await supabase.from("bookings").select(`*,${tableData.CABINS}(name),${tableData.GUESTS}(name,email)`).eq(`${filter?.name}`,filter?.label);
+export async function getBookings(filter:filterProp) {
+  // const {name,label} = filter;
+
+const newFilter = filter as filterProp
+
+const {name,label} = newFilter.filter
+  let query = supabase
+  .from("bookings")
+  .select(`*,cabins(name),guests(name,email)`)
+
+
+  if(query  && name && label !==null) {query = query.eq(name,capitalizeFirstLetter(label));}
+
+
+  const {data, error} = await query;
 
   if(error) {
     console.log(error);
@@ -16,6 +27,7 @@ export async function getBookings({filter}:{filter:{name:string,label:string|nul
   }
   return data;
 }
+
 export async function getBooking(id:number) {
   const { data, error } = await supabase
     .from("bookings")

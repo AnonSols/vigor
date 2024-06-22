@@ -89,6 +89,7 @@ function TableHeader({ children }: childrenType) {
     </StyledHeader>
   );
 }
+
 function TableBody({
   data = [],
   render,

@@ -1,6 +1,6 @@
 import { SUPABASE_URL } from "../services/supabase";
 
-const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/cabin-images/`;
+const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/cabins/`;
 //minor chanes made to this file
 
 export const cabins = [

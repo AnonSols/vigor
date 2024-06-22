@@ -6,6 +6,7 @@ const StyledPagination = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+StyledPagination;
 
 const P = styled.p`
   font-size: 1.4rem;
@@ -15,13 +16,18 @@ const P = styled.p`
     font-weight: 600;
   }
 `;
+P;
 
 const Buttons = styled.div`
   display: flex;
   gap: 0.6rem;
 `;
+Buttons;
 
-const PaginationButton = styled.button`
+type paginationProp = {
+  active: boolean;
+};
+const PaginationButton = styled.button<paginationProp>`
   background-color: ${(props) =>
     props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
   color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
@@ -55,3 +61,14 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+PaginationButton;
+
+export default function Pagination() {
+  return (
+    <StyledPagination>
+      <P>
+        <span>1</span> to <span>10</span> of <span>23</span> results.
+      </P>
+    </StyledPagination>
+  );
+}

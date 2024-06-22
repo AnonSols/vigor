@@ -9,6 +9,7 @@ import {
 import { useBooking } from "./hooks/useBooking";
 import Spinner from "../../ui/Spinner";
 import { newCabinType } from "../../../types";
+import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   // const bookings: BookingType[] = [];
@@ -44,6 +45,10 @@ function BookingTable() {
             return <BookingRow key={newBooking.id} booking={newBooking} />;
           }}
         />
+
+        <Table.footer>
+          <Pagination />
+        </Table.footer>
       </Table>
     </Menus>
   );

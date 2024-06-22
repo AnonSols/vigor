@@ -1,23 +1,24 @@
 // import { tableData } from "../../types";
-import { filterProp } from "../../types/bookingsTypes";
+import {   getBookingType } from "../../types/bookingsTypes";
 import { capitalizeFirstLetter, getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
-export async function getBookings(filter:filterProp) {
+export async function getBookings({ filter,sortBy}:getBookingType) {
   // const {name,label} = filter;
+sortBy;
 
-const newFilter = filter as filterProp
-
-const {name,label} = newFilter.filter
+const {name,label} = filter.filter
   let query = supabase
   .from("bookings")
   .select(`*,cabins(name),guests(name,email)`)
 
+//FILTER
+  if(filter  && name && label ) {query = query.eq(name,capitalizeFirstLetter(label));}
 
-  if(query  && name && label !==null) {query = query.eq(name,capitalizeFirstLetter(label));}
+//SORT - for using supabase the equivalent to sort array method is the field.
 
-
+if(sortBy.field) query.order(sortBy.field,{ascending:sortBy.description ==='asc'})
   const {data, error} = await query;
 
   if(error) {

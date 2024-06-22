@@ -5,6 +5,12 @@ export type BookingType = Database['public']['Tables']['bookings']['Row']
 
 
 export type filterProp = {filter:{name:string,label:string|null}}
+// export type getBookingType = filterProp &   {sortBy:{filter:string,modifier:number,description:string}}
+
+export type getBookingType = {
+  filter:filterProp,
+  sortBy:{field:string,description:string}
+}
 
 export type ModifiedBookingRowInterface ={
   booking:BookingType & { numNights: number;

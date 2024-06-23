@@ -60,7 +60,7 @@ const PaginationButton = styled.button<paginationProp>`
   }
 `;
 
-//add pagination
+//add pagination functionality
 export default function Pagination() {
   return (
     <StyledPagination>

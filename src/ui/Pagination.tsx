@@ -1,6 +1,7 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { Page } from "../../types";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -63,14 +64,11 @@ const PaginationButton = styled.button<paginationProp>`
 
 //add pagination functionality - The page should contain the total result over the count.
 
-export default function Pagination({ count }: { count?: number }) {
-  enum page {
-    PAGE_SIZE = 10,
-  }
-
+export default function Pagination({ count }: { count?: number | null }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  /*PAGINATION ALGORITHM:
+  /*
+  PAGINATION ALGORITHM:
    Count should be the total result
 
     To get every individual page count is to get the amount of data that can be rendered on every individual page.
@@ -81,7 +79,7 @@ export default function Pagination({ count }: { count?: number }) {
     ? 1
     : Number(searchParams.get("page"));
 
-  const pageCount = count && Math.ceil(count / page.PAGE_SIZE);
+  const pageCount = count && Math.ceil(count / Page.PAGE_SIZE);
   function onNext() {
     // the logic is that first we check for if the currentpage is equal to the page count is that is true that means that it's on the last page. so we say if we are at the last page return the currentpage
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
@@ -101,9 +99,9 @@ export default function Pagination({ count }: { count?: number }) {
   return (
     <StyledPagination>
       <P>
-        <span>{(currentPage - 1) * page.PAGE_SIZE + 1}</span> to{" "}
+        <span>{(currentPage - 1) * Page.PAGE_SIZE + 1}</span> to{" "}
         <span>
-          {currentPage === pageCount ? count : currentPage * page.PAGE_SIZE}
+          {currentPage === pageCount ? count : currentPage * Page.PAGE_SIZE}
         </span>{" "}
         of <span>{count}</span> results.
       </P>

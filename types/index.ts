@@ -8,3 +8,7 @@ BOOKINGS='bookings',
 SETTINGS='settings',
 GUESTS='guests'
 }
+
+ export enum Page {
+    PAGE_SIZE = 10,
+  }

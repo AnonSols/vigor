@@ -22,9 +22,14 @@ export function useBooking() {
     const sortBy = {
         field,description
     }
+
+      const page = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
  const {isLoading,data} = useQuery({
-     queryKey: [`${tableData.BOOKINGS}`,filter,sortBy],
-    queryFn:()=> getBookings({filter,sortBy}),
+     queryKey: [`${tableData.BOOKINGS}`,filter,sortBy, page],
+    queryFn:()=> getBookings({filter,sortBy,page}),
  })
 
  return {isLoading, data}

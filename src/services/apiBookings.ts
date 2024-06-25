@@ -1,32 +1,42 @@
 // import { tableData } from "../../types";
+import { Page } from "../../types";
 import {   getBookingType } from "../../types/bookingsTypes";
 import { capitalizeFirstLetter, getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
-export async function getBookings({ filter,sortBy}:getBookingType) {
+export async function getBookings({ filter,sortBy,page}:getBookingType) {
   // const {name,label} = filter;
 sortBy;
 
 const {name,label} = filter.filter
   let query = supabase
   .from("bookings")
-  .select(`*,cabins(name),guests(name,email)`)
+  .select(`*,cabins(name),guests(name,email)`,{count:"exact"})
 
 //FILTER
   if(filter  && name && label ) {query = query.eq(name,capitalizeFirstLetter(label));}
 
-//SORT - for using supabase the equivalent to sort array method is the field.
+//SORT - for using supabase the equivalent to sort array method is the order.
 
 if(sortBy.field) query.order(sortBy.field,{ascending:sortBy.description ==='asc'})
-  const {data, error} = await query;
+
+//PAGINAION
+
+if(page) {
+
+  const from = (page-1) * Page.PAGE_SIZE + 1;
+  const to = page * Page.PAGE_SIZE
+query = query.range(from,to);  
+}
+  const {data, error,count} = await query;
 
   if(error) {
     console.log(error);
     throw new Error("Bookings couldn't be loaded");
 
   }
-  return data;
+  return {data,count};
 }
 
 export async function getBooking(id:number) {

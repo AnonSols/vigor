@@ -13,7 +13,7 @@ import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   // const bookings: BookingType[] = [];
-  const { data: bookings, isLoading } = useBooking();
+  const { data: bookingsData, isLoading } = useBooking();
 
   if (isLoading) return <Spinner />;
   return (
@@ -29,7 +29,7 @@ function BookingTable() {
         </Table.header>
 
         <Table.body
-          data={bookings as unknown[] | undefined}
+          data={bookingsData?.data as unknown[] | undefined}
           render={(currentComponent: unknown) => {
             const newBooking = currentComponent as BookingType & {
               numNights: number;
@@ -46,7 +46,7 @@ function BookingTable() {
         />
 
         <Table.footer>
-          <Pagination count={bookings?.length} />
+          <Pagination count={bookingsData?.count} />
         </Table.footer>
       </Table>
     </Menus>

@@ -9,7 +9,8 @@ export type filterProp = {filter:{name:string,label:string|null}}
 
 export type getBookingType = {
   filter:filterProp,
-  sortBy:{field:string,description:string}
+  sortBy:{field:string,description:string},
+  page:number;
 }
 
 export type ModifiedBookingRowInterface ={

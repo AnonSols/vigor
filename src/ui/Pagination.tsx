@@ -63,9 +63,9 @@ const PaginationButton = styled.button<paginationProp>`
 
 //add pagination functionality - The page should contain the total result over the count.
 
-export default function Pagination({ count }: { count: number }) {
+export default function Pagination({ count }: { count?: number }) {
   enum page {
-    Page = 10,
+    PAGE_SIZE = 10,
   }
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,7 +81,7 @@ export default function Pagination({ count }: { count: number }) {
     ? 1
     : Number(searchParams.get("page"));
 
-  const pageCount = Math.ceil(count / page.Page);
+  const pageCount = count && Math.ceil(count / page.PAGE_SIZE);
   function onNext() {
     // the logic is that first we check for if the currentpage is equal to the page count is that is true that means that it's on the last page. so we say if we are at the last page return the currentpage
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
@@ -91,22 +91,28 @@ export default function Pagination({ count }: { count: number }) {
   }
 
   function onPrev() {
-    const prev = currentPage === pageCount ? currentPage : currentPage - 1;
+    const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
     searchParams.set("page", `${prev}`);
     setSearchParams(searchParams);
   }
+
+  if (pageCount && pageCount <= 1) return null;
   return (
     <StyledPagination>
       <P>
-        <span>1</span> to <span>10</span> of <span>{count}</span> results.
+        <span>{(currentPage - 1) * page.PAGE_SIZE + 1}</span> to{" "}
+        <span>
+          {currentPage === pageCount ? count : currentPage * page.PAGE_SIZE}
+        </span>{" "}
+        of <span>{count}</span> results.
       </P>
 
       <Buttons>
-        <PaginationButton onClick={onPrev}>
+        <PaginationButton onClick={onPrev} disabled={currentPage === 1}>
           <HiChevronLeft /> <span>Previous</span>
         </PaginationButton>
-        <PaginationButton onClick={onNext}>
+        <PaginationButton onClick={onNext} disabled={currentPage === pageCount}>
           <span>Next</span>
           <HiChevronRight />
         </PaginationButton>

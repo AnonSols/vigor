@@ -16,7 +16,6 @@ function BookingTable() {
   const { data: bookings, isLoading } = useBooking();
 
   if (isLoading) return <Spinner />;
-
   return (
     <Menus>
       <Table column="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
@@ -47,7 +46,7 @@ function BookingTable() {
         />
 
         <Table.footer>
-          <Pagination count={45} />
+          <Pagination count={bookings?.length} />
         </Table.footer>
       </Table>
     </Menus>

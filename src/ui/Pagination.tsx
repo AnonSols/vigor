@@ -1,4 +1,5 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -60,19 +61,52 @@ const PaginationButton = styled.button<paginationProp>`
   }
 `;
 
-//add pagination functionality
-export default function Pagination() {
+//add pagination functionality - The page should contain the total result over the count.
+
+export default function Pagination({ count }: { count: number }) {
+  enum page {
+    Page = 10,
+  }
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  /*PAGINATION ALGORITHM:
+   Count should be the total result
+
+    To get every individual page count is to get the amount of data that can be rendered on every individual page.
+
+    pageCount = Roundup the Total rendered result over the Constant page that is to be rendered on a page
+   */
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
+  const pageCount = Math.ceil(count / page.Page);
+  function onNext() {
+    // the logic is that first we check for if the currentpage is equal to the page count is that is true that means that it's on the last page. so we say if we are at the last page return the currentpage
+    const next = currentPage === pageCount ? currentPage : currentPage + 1;
+
+    searchParams.set("page", `${next}`);
+    setSearchParams(searchParams);
+  }
+
+  function onPrev() {
+    const prev = currentPage === pageCount ? currentPage : currentPage - 1;
+
+    searchParams.set("page", `${prev}`);
+    setSearchParams(searchParams);
+  }
   return (
     <StyledPagination>
       <P>
-        <span>1</span> to <span>10</span> of <span>23</span> results.
+        <span>1</span> to <span>10</span> of <span>{count}</span> results.
       </P>
 
       <Buttons>
-        <PaginationButton>
+        <PaginationButton onClick={onPrev}>
           <HiChevronLeft /> <span>Previous</span>
         </PaginationButton>
-        <PaginationButton>
+        <PaginationButton onClick={onNext}>
           <span>Next</span>
           <HiChevronRight />
         </PaginationButton>

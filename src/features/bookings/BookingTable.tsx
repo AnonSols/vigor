@@ -47,7 +47,7 @@ function BookingTable() {
         />
 
         <Table.footer>
-          <Pagination />
+          <Pagination count={45} />
         </Table.footer>
       </Table>
     </Menus>

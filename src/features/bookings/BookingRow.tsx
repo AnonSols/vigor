@@ -96,3 +96,4 @@ function BookingRow({ booking }: BookingRowType) {
 }
 
 export default BookingRow;
+//build the singlebookings page

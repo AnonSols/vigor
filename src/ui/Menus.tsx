@@ -126,6 +126,7 @@ const Menus = ({ children }: MenusChildren) => {
 function Toggle({ id }: { id: number }) {
   const { open, isOpenedId, close } = useMenuContext();
   const { setPosition } = useMenuContext();
+
   function handleClick(e: MouseEvent) {
     let rect: DOMRect | undefined;
     if (e.target instanceof Element)

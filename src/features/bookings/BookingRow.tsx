@@ -39,8 +39,6 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-const navigate = useNavigate();
-
 type BookingRowType = {
   booking: BookingType & {
     numNights: number;
@@ -67,6 +65,7 @@ function BookingRow({ booking }: BookingRowType) {
     id,
   } = booking;
 
+  const navigate = useNavigate();
   const statusToTagName: Record<Status, string> = {
     Unconfirmed: "blue",
     "Checked-in": "green",
@@ -74,6 +73,7 @@ function BookingRow({ booking }: BookingRowType) {
   };
 
   const status = bookingStatus || "Unconfirmed";
+
   return (
     <Table.row>
       <Cabin>{cabinName}</Cabin>

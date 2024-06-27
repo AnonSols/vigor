@@ -8,6 +8,9 @@ import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { BookingType } from "../../../types/bookingsTypes";
 import { newCabinType } from "../../../types";
+import Menus from "../../ui/Menus";
+import { HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -36,6 +39,8 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
+const navigate = useNavigate();
+
 type BookingRowType = {
   booking: BookingType & {
     numNights: number;
@@ -47,7 +52,9 @@ type BookingRowType = {
     totalPrice: number;
   };
 };
+
 type Status = "Unconfirmed" | "Checked-in" | "Checked-out";
+
 function BookingRow({ booking }: BookingRowType) {
   const {
     startDate,
@@ -57,6 +64,7 @@ function BookingRow({ booking }: BookingRowType) {
     cabins: { name: cabinName },
     guests: { name: guestName, email },
     numNights,
+    id,
   } = booking;
 
   const statusToTagName: Record<Status, string> = {
@@ -91,9 +99,20 @@ function BookingRow({ booking }: BookingRowType) {
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toggle id={id} />
+        <Menus.List id={id}>
+          <Menus.Button
+            icon={<HiEye />}
+            click={() => navigate(`/bookings/${id}`)}
+          >
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.row>
   );
 }
 
 export default BookingRow;
-//build the singlebookings page

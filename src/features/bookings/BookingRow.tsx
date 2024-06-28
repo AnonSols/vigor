@@ -6,7 +6,7 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import { BookingType } from "../../../types/bookingsTypes";
+import { BookingType, statusToTagName } from "../../../types/bookingsTypes";
 import { newCabinType } from "../../../types";
 import Menus from "../../ui/Menus";
 import { HiEye } from "react-icons/hi2";
@@ -51,8 +51,6 @@ type BookingRowType = {
   };
 };
 
-type Status = "Unconfirmed" | "Checked-in" | "Checked-out";
-
 function BookingRow({ booking }: BookingRowType) {
   const {
     startDate,
@@ -66,11 +64,6 @@ function BookingRow({ booking }: BookingRowType) {
   } = booking;
 
   const navigate = useNavigate();
-  const statusToTagName: Record<Status, string> = {
-    Unconfirmed: "blue",
-    "Checked-in": "green",
-    "Checked-out": "silver",
-  };
 
   const status = bookingStatus || "Unconfirmed";
 

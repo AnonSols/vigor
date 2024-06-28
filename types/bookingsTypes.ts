@@ -23,3 +23,10 @@ export type ModifiedBookingRowInterface ={
     totalPrice: number;}
 }
 
+ type Status = "Unconfirmed" | "Checked-in" | "Checked-out";
+
+export const statusToTagName: Record<Status, string> = {
+    Unconfirmed: "blue",
+    "Checked-in": "green",
+    "Checked-out": "silver",
+  };

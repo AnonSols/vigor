@@ -9,6 +9,7 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
+import { statusToTagName } from "../../../types/bookingsTypes";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -18,15 +19,9 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const booking = {};
-  const status = "checked-in";
+  const status = "Checked-in";
 
   const moveBack = useMoveBack();
-
-  const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
-  };
 
   return (
     <>

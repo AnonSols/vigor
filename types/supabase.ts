@@ -37,7 +37,6 @@ export type Database = {
     Tables: {
       bookings: {
         Row: {
-          id: number
           cabinId: number | null
           cabinPrice: number | null
           created_at: string
@@ -45,9 +44,10 @@ export type Database = {
           extraPrice: number | null
           guestsId: number | null
           hasBreakfast: boolean | null
+          id: number
           isPaid: boolean | null
           numGuests: number | null
-          numNight: number | null
+          numNights: number | null
           observations: string | null
           startDate: string | null
           status: string | null
@@ -64,7 +64,7 @@ export type Database = {
           id?: number
           isPaid?: boolean | null
           numGuests?: number | null
-          numNight?: number | null
+          numNights?: number | null
           observations?: string | null
           startDate?: string | null
           status?: string | null
@@ -81,7 +81,7 @@ export type Database = {
           id?: number
           isPaid?: boolean | null
           numGuests?: number | null
-          numNight?: number | null
+          numNights?: number | null
           observations?: string | null
           startDate?: string | null
           status?: string | null
@@ -484,6 +484,10 @@ export type Database = {
           metadata: Json
           updated_at: string
         }[]
+      }
+      operation: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       search: {
         Args: {

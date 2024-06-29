@@ -11,7 +11,7 @@ export async function getBookings({ filter,sortBy,page}:getBookingType) {
 const {name,label} = filter.filter
   let query = supabase
   .from("bookings")
-  .select(`*,cabins(name),guests(name,email)`,{count:"exact"})
+  .select(`*,cabins(name),guests(name,email,nationality, countryFlag, nationalID )`,{count:"exact"})
 
 //FILTER
 

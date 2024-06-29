@@ -6,9 +6,9 @@ import {
   // BookingType,
   // ModifiedBookingRowInterface,
 } from "../../../types/bookingsTypes";
-import { useBooking } from "./hooks/useBooking";
+import { useBooking } from "./hooks/useBookings";
 import Spinner from "../../ui/Spinner";
-import { newCabinType } from "../../../types";
+// import { newCabinType } from "../../../types";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
@@ -31,15 +31,16 @@ function BookingTable() {
         <Table.body
           data={bookingsData?.data as unknown[] | undefined}
           render={(currentComponent: unknown) => {
-            const newBooking = currentComponent as BookingType & {
-              numNights: number;
-              guests: { name: string; email: string };
-              cabins: newCabinType;
-              startDate: string;
-              endDate: string;
-              status: "Unconfirmed" | "Checked-in" | "Checked-out";
-              totalPrice: number;
-            };
+            const newBooking = currentComponent as BookingType;
+            //  & {
+            //   numNights: number;
+            //   guests: { name: string; email: string };
+            //   cabins: newCabinType;
+            //   startDate: string;
+            //   endDate: string;
+            //   status: "Unconfirmed" | "Checked-in" | "Checked-out";
+            //   totalPrice: number;
+            // };
 
             return <BookingRow key={newBooking.id} booking={newBooking} />;
           }}

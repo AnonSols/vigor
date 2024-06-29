@@ -114,7 +114,7 @@ function BookingDataBox({ booking }: { booking: BookingType }) {
     numNights,
     numGuests,
     cabinPrice,
-    extrasPrice,
+    extraPrice,
     totalPrice,
     hasBreakfast,
     observations,
@@ -128,6 +128,7 @@ function BookingDataBox({ booking }: { booking: BookingType }) {
     },
     cabins: { name: cabinName },
   } = booking;
+
   return (
     <StyledBookingDataBox>
       <Header>
@@ -180,7 +181,7 @@ function BookingDataBox({ booking }: { booking: BookingType }) {
             {hasBreakfast &&
               ` (${
                 cabinPrice && formatCurrency(cabinPrice)
-              } cabin + ${formatCurrency(extrasPrice)} breakfast)`}
+              } cabin + ${formatCurrency(extraPrice)} breakfast)`}
           </DataItem>
 
           <p>{isPaid ? "Paid" : "Will pay at property"}</p>

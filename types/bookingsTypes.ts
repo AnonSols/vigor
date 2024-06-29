@@ -6,7 +6,7 @@ export type BookingType = Database['public']['Tables']['bookings']['Row'] & {
               guests: { name: string; email: string,nationality:string,countryFlag:string,nationalID:string  };
               cabins: newCabinType;
               startDate: string;
-              extrasPrice:number;
+              extraPrice:number;
               endDate: string;
               status: "Unconfirmed" | "Checked-in" | "Checked-out";
               totalPrice: number;

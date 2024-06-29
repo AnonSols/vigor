@@ -5,17 +5,16 @@ import { useParams } from 'react-router-dom'
 
 function useBooking() {
 
-    const {bookingId} = useParams();
+    const {bookingsId} = useParams();
 
     const {data, error,isLoading} = useQuery({
     queryKey:[`${tableData.BOOKINGS}`],
-    queryFn:()=>getBooking(Number(bookingId)),
+    queryFn:()=>getBooking(Number(bookingsId)),
     retry:false,
 })
 
 if(error) throw Error("There was an issue getting this single bookings page!")
 
-    console.log(data)
 return {data, error,isLoading }
 }
 

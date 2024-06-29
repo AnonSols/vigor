@@ -22,8 +22,6 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
   const { data: booking, isLoading } = useBooking();
 
-  console.log(booking);
-
   if (isLoading) return <Spinner />;
 
   const { status, id: bookingsId } = booking as BookingType;

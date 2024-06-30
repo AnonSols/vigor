@@ -6,14 +6,14 @@ import {
   // BookingType,
   // ModifiedBookingRowInterface,
 } from "../../../types/bookingsTypes";
-import { useBooking } from "./hooks/useBookings";
+import { useBookings } from "./hooks/useBookings";
 import Spinner from "../../ui/Spinner";
 // import { newCabinType } from "../../../types";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   // const bookings: BookingType[] = [];
-  const { data: bookingsData, isLoading } = useBooking();
+  const { data: bookingsData, isLoading } = useBookings();
 
   if (isLoading) return <Spinner />;
   return (

@@ -20,8 +20,8 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { data: booking, isLoading } = useBooking();
-
+  const { data, isLoading } = useBooking();
+  const booking = data as BookingType;
   if (isLoading) return <Spinner />;
 
   const { status, id: bookingsId } = booking as BookingType;

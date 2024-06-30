@@ -6,7 +6,7 @@ import { filterProp } from "../../../../types/bookingsTypes";
 
 
 
-export function useBooking() {
+export function useBookings() {
     const queryClient = useQueryClient();
     const [searchParams] = useSearchParams()
      

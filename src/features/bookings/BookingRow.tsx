@@ -9,7 +9,7 @@ import { formatDistanceFromNow } from "../../utils/helpers";
 import { BookingType, statusToTagName } from "../../../types/bookingsTypes";
 import { newCabinType } from "../../../types";
 import Menus from "../../ui/Menus";
-import { HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
@@ -102,6 +102,14 @@ function BookingRow({ booking }: BookingRowType) {
           >
             See details
           </Menus.Button>
+          {status === "Unconfirmed" && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              click={() => navigate(`/checkin/${id}`)}
+            >
+              Check in
+            </Menus.Button>
+          )}
         </Menus.List>
       </Menus.Menu>
     </Table.row>

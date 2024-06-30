@@ -12,9 +12,7 @@ export type BookingType = Database['public']['Tables']['bookings']['Row'] & {
               totalPrice: number;
             }
 
-// { guests: { name: guestName, email, country, countryFlag, nationalID } };
 export type filterProp = {filter:{name:string,label:string|null}}
-// export type getBookingType = filterProp &   {sortBy:{filter:string,modifier:number,description:string}}
 
 export type getBookingType = {
   filter:filterProp,

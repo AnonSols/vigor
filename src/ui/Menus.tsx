@@ -172,9 +172,7 @@ function Button({
   }
   return (
     <StyledButton disabled={loading && loading} onClick={handleClick}>
-      <span>
-        {icon} {children}
-      </span>
+      {icon} {children}
     </StyledButton>
   );
 }

@@ -105,7 +105,7 @@ export default function Pagination({ count }: { count?: number | null }) {
         </span>{" "}
         of <span>{count}</span> results.
       </P>
-
+      e
       <Buttons>
         <PaginationButton onClick={onPrev} disabled={currentPage === 1}>
           <HiChevronLeft /> <span>Previous</span>

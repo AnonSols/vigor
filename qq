@@ -1,0 +1,323 @@
+[33mcommit b9aa6e37c08408c8f5174ac463bac186169dc8b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Mon Jul 1 22:50:51 2024 +0100
+
+    modify logo
+
+[33mcommit 01c236584f62afb0a113180cf67830d10dcaca2a[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 30 06:10:43 2024 +0100
+
+    update checkin functionality and update ui
+
+[33mcommit 88c570db1fad3f1aee8c91f8db6a8fb9e383a7e5[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 30 02:49:43 2024 +0100
+
+    minor changes
+
+[33mcommit 575fc9a5922963233657c7628edbe8e927716c18[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 29 13:18:35 2024 +0100
+
+    fix minor bug
+
+[33mcommit c8d08df9c97ccb8a699328fcdb30b1717fe2c401[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 29 12:31:22 2024 +0100
+
+    fix minor bug
+
+[33mcommit 2ecac17227cfb7699bf2654f95e7d14f14a88a53[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 29 12:28:43 2024 +0100
+
+    get single page
+
+[33mcommit ba33295e35f9f620aac980f1509a4d2b6d12a198[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri Jun 28 14:57:45 2024 +0100
+
+    fix minor bug
+
+[33mcommit d907b802c4dcb7fa45e787d1ff2867f80b63f5b7[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri Jun 28 00:22:04 2024 +0100
+
+    fix bug
+
+[33mcommit c0e2dccd1371d04a843e607afc81fe5e9025b04f[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu Jun 27 14:10:48 2024 +0100
+
+    implement single page
+
+[33mcommit 028429124104f5bb3cffbe9716180972177faaba[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed Jun 26 21:59:34 2024 +0100
+
+    minor commit
+
+[33mcommit 1a30291d778765d2a4d4877f651137cdb3053627[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 25 14:26:06 2024 +0100
+
+    implement prefetching of data
+
+[33mcommit b51f2a3253dc3624bd4505ee4deca0712260f0ca[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 25 12:30:09 2024 +0100
+
+    Fix pagination final
+
+[33mcommit 1a18d0b74bbc0489b3a43778eee2d3248d44d0ca[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 25 04:04:31 2024 +0100
+
+    fix bug
+
+[33mcommit 556dca5692d29f04d0945e0af3c5156a7dd4b84b[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 25 03:18:15 2024 +0100
+
+    pagination works!
+
+[33mcommit 8c8d8c1787e68eaecb316fcb201b808e257216cb[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 23 23:15:14 2024 +0100
+
+    minor changes
+
+[33mcommit b7d8ae14b23f9a6d912ec9965b2bea5647996205[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 23 23:14:47 2024 +0100
+
+    add comment
+
+[33mcommit 81f9b773165fb2c52f23e2b5e323f2490358b79a[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 23 01:21:52 2024 +0100
+
+    minor changes
+
+[33mcommit 168978e545f1ab6181eaec2c696c05eec1c63331[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 22 23:40:15 2024 +0100
+
+    implement pagination to the booking table
+
+[33mcommit 27666b4f7ca5391797d77c0a851adc4980e15950[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 22 09:27:08 2024 +0100
+
+    add sortby functionality
+
+[33mcommit 0d1367d94b97ee704fd2a67ebef2301850a394d6[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri Jun 21 04:05:32 2024 +0100
+
+    fix server side filtering for booking filter
+
+[33mcommit 9e69a2a1367792e6fc8dde92742d8ac54913a52d[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 18 23:44:27 2024 +0100
+
+    minor commit
+
+[33mcommit 1dcde38f8aefef10289fd653a121353524b34cda[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri Jun 14 23:24:04 2024 +0100
+
+    minor commit
+
+[33mcommit 2d46e76698ce1df7e46d3006bc88f3c36efffa8a[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 8 23:49:04 2024 +0100
+
+    minor commmit
+
+[33mcommit 1229a9ff9af412729e5db12283f37f548e564b24[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed Jun 5 02:45:16 2024 +0100
+
+    fix the bookings table
+
+[33mcommit ccfc7fab1f17e8a903f830c92bfcae8dcfc9f7b2[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed Jun 5 01:03:02 2024 +0100
+
+    fix minor bugs
+
+[33mcommit 4117775e0c76694940eefb8871ef686a7542408c[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue Jun 4 23:37:36 2024 +0100
+
+    fix minor bugs
+
+[33mcommit ba924e48902806cf0d089a515494d5dff8f7f69e[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Mon Jun 3 23:43:25 2024 +0100
+
+    minor commit
+
+[33mcommit ce5eb0e91a0988fce8608074300e85a4d1169eac[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun Jun 2 23:58:09 2024 +0100
+
+    uploader modifications
+
+[33mcommit 7ceb9cfb498fae02679dc9e84acfc63508cbf84c[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 1 12:50:18 2024 +0100
+
+    implement booking functionality
+
+[33mcommit 806e4bdad19fff75a8f812127c350887031f0700[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 1 03:13:53 2024 +0100
+
+    add booking table
+
+[33mcommit 4c9cb24c31b03402a739c7848eab5da7b5c94f12[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat Jun 1 03:02:55 2024 +0100
+
+    fix bugs
+
+[33mcommit 0c4426808a21b031b4698856a08aaf863b4b7998[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 30 23:07:04 2024 +0100
+
+    minor changes
+
+[33mcommit 65809c43a470dc4e3924c0884be5fcf99415617c[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed May 29 23:20:38 2024 +0100
+
+    update type and generate booking types
+
+[33mcommit 87d0cf436167796a57269ca5ce6eea95941c912e[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue May 28 22:50:22 2024 +0100
+
+    fix filter
+
+[33mcommit fc5ab3702b7e0f20e3008b762b0f59ee76dbdaaa[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun May 26 23:36:48 2024 +0100
+
+    initial commit
+
+[33mcommit cc7cad1d0a2e2de79e3de41e6cb4c3c85fa48e44[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri May 24 11:37:28 2024 +0100
+
+    fix modal bug
+
+[33mcommit aa62394e5f5cae3ff68e9cbbda8048adc6ff6447[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 23 11:47:32 2024 +0100
+
+    fix minor bug
+
+[33mcommit bcf6b933c772932a49e1cf9ca88cea91e6612793[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 23 05:04:09 2024 +0100
+
+    add menu context
+
+[33mcommit 34647d1efbdc549fb1bae8682174a74e8f3ae54e[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed May 22 23:30:52 2024 +0100
+
+    fix render logic
+
+[33mcommit 0a4999160179de3dd55b2623bd6f9393b516fef4[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue May 21 22:50:26 2024 +0100
+
+    add delete modal
+
+[33mcommit fc87012a9e96f01d687488be7e4ee4f652865a37[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 16 03:47:59 2024 +0100
+
+    add react portal and change logo
+
+[33mcommit 72d5e255777539c393505e01b0816f5f4099ffb1[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 16 03:36:04 2024 +0100
+
+    add modal to form
+
+[33mcommit 9ab6c3209ceaa6a31e820af05eeb2eeb634db269[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 9 01:19:23 2024 +0100
+
+    minor bug fix
+
+[33mcommit 36d5f7f8c80f83f04181b7cb15c8de684231a7e1[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed May 8 03:56:55 2024 +0100
+
+    finish the settings components
+
+[33mcommit 6656a221b51e877b4aae6e5462e0b08a905265e1[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed May 8 02:04:05 2024 +0100
+
+    query settings from database
+
+[33mcommit c0a478cd2cbc418697f8d96929b4a0b1b51077da[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue May 7 23:48:00 2024 +0100
+
+    add duplicate functionality
+
+[33mcommit 87f6db31214fca4cb95a4dc06178c91c119f6fc2[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Tue May 7 11:57:01 2024 +0100
+
+    abstract react query into hooks
+
+[33mcommit 14dc6a92d654dba2d131fd12329faa6e36a801aa[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sun May 5 22:35:19 2024 +0100
+
+    work on edit in  cabin page
+
+[33mcommit f51cca105a10570be3a862f46efb50bd98c80cbb[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Sat May 4 07:12:00 2024 +0100
+
+    initial commit
+
+[33mcommit 03d8436125a749f17fcb513b073ab899cd98a623[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Fri May 3 01:10:51 2024 +0100
+
+    fix bug and storage bucket
+
+[33mcommit 14f0b07a2c2e3ad1446ee601cb97f309a9845350[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 2 19:10:27 2024 +0100
+
+    cabin form type bug fix
+
+[33mcommit 07cf383b8dc7db270cf52d805f34456036890d87[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 2 18:22:45 2024 +0100
+
+    add image to storage bucket in backend
+
+[33mcommit dcadad0259e6c12bd94bee7de6c7d63d97337fa9[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Thu May 2 03:59:48 2024 +0100
+
+    handle Form errors to create new cabin
+
+[33mcommit db5d6813a2edbe63a1febfba656add7b04574659[m
+Author: Anon Sols <soloschmail@gmail.com>
+Date:   Wed May 1 23:43:44 2024 +0100
+
+    bug fix

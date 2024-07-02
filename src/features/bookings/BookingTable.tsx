@@ -32,15 +32,6 @@ function BookingTable() {
           data={bookingsData?.data as unknown[] | undefined}
           render={(currentComponent: unknown) => {
             const newBooking = currentComponent as BookingType;
-            //  & {
-            //   numNights: number;
-            //   guests: { name: string; email: string };
-            //   cabins: newCabinType;
-            //   startDate: string;
-            //   endDate: string;
-            //   status: "Unconfirmed" | "Checked-in" | "Checked-out";
-            //   totalPrice: number;
-            // };
 
             return <BookingRow key={newBooking.id} booking={newBooking} />;
           }}

@@ -7,6 +7,7 @@ function useBooking() {
 
     const {bookingsId} = useParams();
 
+
     const {data, error,isLoading} = useQuery({
     queryKey:[`${tableData.BOOKINGS}`, bookingsId],
     queryFn:()=>getBooking(Number(bookingsId)),

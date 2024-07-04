@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// import BookingDataBox from "./BookingDataBox";
+import BookingDataBox from "./BookingDataBox";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
 import Tag from "../../ui/Tag";
@@ -21,13 +21,12 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const { data, isLoading } = useBooking();
+  const moveBack = useMoveBack();
   const booking = data as BookingType;
   if (isLoading) return <Spinner />;
 
-  const { status, id: bookingsId } = booking as BookingType;
-
-  const moveBack = useMoveBack();
-
+  const { status, id: bookingsId } = booking;
+  //Note to self hooks should be called on the top level of a component to prevent: Invariant Violation or
   return (
     <>
       <Row type="horizontal">
@@ -37,9 +36,7 @@ function BookingDetail() {
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
-
-      {/* <BookingDataBox booking={booking} /> */}
-
+      <BookingDataBox booking={booking} />
       <ButtonGroup>
         <Button variation="secondary" onClick={moveBack}>
           Back

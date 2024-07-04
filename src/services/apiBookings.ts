@@ -41,7 +41,7 @@ const {data, error,count} = await query;
     throw new Error("Bookings couldn't be loaded");
   }
 
-  //PRE-FETCHING
+  
 
 
   return {data,count};

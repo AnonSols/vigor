@@ -5,7 +5,6 @@ import { useSearchParams } from "react-router-dom";
 import { filterProp } from "../../../../types/bookingsTypes";
 
 
-
 export function useBookings() {
     const queryClient = useQueryClient();
     const [searchParams] = useSearchParams()
@@ -50,11 +49,11 @@ queryClient.prefetchQuery({
     queryFn:()=> getBookings({filter,sortBy,page:page+1}),
 })
 
-// pageCount && page > 1 &&
-// queryClient.prefetchQuery({
-//   queryKey: [`${tableData.BOOKINGS}`,filter,sortBy, page-1],
-//     queryFn:()=> getBookings({filter,sortBy,page:page-1}),
-// })
+pageCount && page > 1 &&
+queryClient.prefetchQuery({
+  queryKey: [`${tableData.BOOKINGS}`,filter,sortBy, page-1],
+    queryFn:()=> getBookings({filter,sortBy,page:page-1}),
+})
  return {isLoading, data}
 }
 

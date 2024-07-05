@@ -116,7 +116,11 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
-export async function updateBooking(id:string, obj:{isPaid:boolean, status:string}) {
+
+export async function updateBooking(id:number,{ obj}:{obj:{
+    isPaid:boolean,
+    status:string;
+  }}) {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)

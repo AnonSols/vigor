@@ -34,11 +34,11 @@ function CheckinBooking() {
   useEffect(() => setConfirmData(booking?.isPaid ?? true), [booking]);
 
   const { checkin, checkingIn } = useCheckin();
-
+  checkingIn;
   function handleCheckin() {
     if (!confirmData) return;
 
-    checkin(booking.id);
+    checkin({ id: booking.id });
   }
 
   if (isLoading) return <Spinner />;

@@ -26,6 +26,7 @@ const Box = styled.div`
 
 function CheckinBooking() {
   const [confirmData, setConfirmData] = useState(false);
+  const [breakfastPrice, setbreakfastPrice] = useState(false);
   const { data, isLoading } = useBooking();
   const moveBack = useMoveBack();
 
@@ -34,11 +35,11 @@ function CheckinBooking() {
   useEffect(() => setConfirmData(booking?.isPaid ?? true), [booking]);
 
   const { checkin, checkingIn } = useCheckin();
-  checkingIn;
+
   function handleCheckin() {
     if (!confirmData) return;
-
-    checkin({ id: booking.id });
+    console.log(booking.id);
+    checkin(booking.id);
   }
 
   if (isLoading) return <Spinner />;
@@ -54,6 +55,19 @@ function CheckinBooking() {
 
       <Box>
         <Checkbox
+          id="breakfast"
+          checked={breakfastPrice}
+          disabled={false}
+          onChange={() => {
+            setConfirmData(false);
+            setbreakfastPrice((b) => !b);
+          }}
+        >
+          Want to add Breakfast for {booking.guests.name}
+        </Checkbox>
+      </Box>
+      <Box>
+        <Checkbox
           id="confirm"
           disabled={confirmData}
           checked={confirmData}
@@ -66,7 +80,7 @@ function CheckinBooking() {
 
       <ButtonGroup>
         {confirmData && (
-          <Button onClick={handleCheckin}>
+          <Button onClick={handleCheckin} disabled={checkingIn}>
             Check in booking #{booking.id}
           </Button>
         )}

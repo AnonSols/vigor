@@ -53,6 +53,7 @@ function CheckinBooking() {
         optionalBreakfastPrice &&
         ((booking.totalPrice + optionalBreakfastPrice) as number),
     };
+
     if (addBreakfast) {
       checkin({ id: booking.id, breakfast });
     } else checkin({ id: booking.id });

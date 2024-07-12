@@ -3,15 +3,22 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import Modal from "../../ui/Modal";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { BookingType, statusToTagName } from "../../../types/bookingsTypes";
 import { newCabinType } from "../../../types";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/hook/useCheckout";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -70,60 +77,75 @@ function BookingRow({ booking }: BookingRowType) {
   const status = bookingStatus || "Unconfirmed";
 
   return (
-    <Table.row>
-      <Cabin>{cabinName}</Cabin>
+    <Modal>
+      <Table.row>
+        <Cabin>{cabinName}</Cabin>
 
-      <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
-      </Stacked>
+        <Stacked>
+          <span>{guestName}</span>
+          <span>{email}</span>
+        </Stacked>
 
-      <Stacked>
-        <span>
-          {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay
-        </span>
-        <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
-        </span>
-      </Stacked>
+        <Stacked>
+          <span>
+            {isToday(new Date(startDate))
+              ? "Today"
+              : formatDistanceFromNow(startDate)}{" "}
+            &rarr; {numNights} night stay
+          </span>
+          <span>
+            {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+            {format(new Date(endDate), "MMM dd yyyy")}
+          </span>
+        </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+        <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+        <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      <Menus.Menu>
-        <Menus.Toggle id={id} />
-        <Menus.List id={id}>
-          <Menus.Button
-            icon={<HiEye />}
-            click={() => navigate(`/bookings/${id}`)}
-          >
-            See details
-          </Menus.Button>
-          {status === "Unconfirmed" && (
+        <Menus.Menu>
+          <Menus.Toggle id={id} />
+          <Menus.List id={id}>
             <Menus.Button
-              icon={<HiArrowDownOnSquare />}
-              click={() => navigate(`/checkin/${id}`)}
+              icon={<HiEye />}
+              click={() => navigate(`/bookings/${id}`)}
             >
-              Check in
+              See details
             </Menus.Button>
-          )}
-          {status === "Checked-in" && (
-            <Menus.Button
-              icon={<HiArrowUpOnSquare />}
-              click={() => checkOut({ id })}
-              loading={isCheckingOut}
-            >
-              Check out
-            </Menus.Button>
-          )}
-        </Menus.List>
-      </Menus.Menu>
-    </Table.row>
+
+            <Modal.Open opens={`${id}`}>
+              <Menus.Button
+                icon={<HiTrash />}
+                // click={() => navigate(`/bookings/${id}`)}
+              >
+                Delete
+              </Menus.Button>
+            </Modal.Open>
+
+            <Modal.Window name={`${id}`}>
+              <ConfirmDelete />
+            </Modal.Window>
+            {status === "Unconfirmed" && (
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                click={() => navigate(`/checkin/${id}`)}
+              >
+                Check in
+              </Menus.Button>
+            )}
+            {status === "Checked-in" && (
+              <Menus.Button
+                icon={<HiArrowUpOnSquare />}
+                click={() => checkOut({ id })}
+                loading={isCheckingOut}
+              >
+                Check out
+              </Menus.Button>
+            )}
+          </Menus.List>
+        </Menus.Menu>
+      </Table.row>
+    </Modal>
   );
 }
 

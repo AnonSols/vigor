@@ -20,7 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/hook/useCheckout";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-
+//daytwoofdoingnothing
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;

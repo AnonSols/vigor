@@ -20,6 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/hook/useCheckout";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteBookings } from "./hooks/useDeleteBookings";
 //daytwoofdoingnothing
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -74,12 +75,15 @@ function BookingRow({ booking }: BookingRowType) {
 
   const navigate = useNavigate();
 
+  // can we start documenting already
+
   const { checkOut, isCheckingOut } = useCheckout();
+  const { deleteFn, isDeleting } = useDeleteBookings();
   const status = bookingStatus || "Unconfirmed";
 
   return (
-    <Modal>
-      <Table.row>
+    <Table.row>
+      <Modal>
         <Cabin>{cabinName}</Cabin>
 
         <Stacked>
@@ -124,7 +128,11 @@ function BookingRow({ booking }: BookingRowType) {
             </Modal.Open>
 
             <Modal.Window name={`${id}`}>
-              <ConfirmDelete />
+              <ConfirmDelete
+                onConfirm={() => deleteFn(id)}
+                resourceName="bookings"
+                disabled={isDeleting}
+              />
             </Modal.Window>
             {status === "Unconfirmed" && (
               <Menus.Button
@@ -145,8 +153,8 @@ function BookingRow({ booking }: BookingRowType) {
             )}
           </Menus.List>
         </Menus.Menu>
-      </Table.row>
-    </Modal>
+      </Modal>
+    </Table.row>
   );
 }
 

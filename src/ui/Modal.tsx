@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { useHandleClick } from "../hooks/useHandleClick";
+// import toast from "react-hot-toast";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -102,7 +103,12 @@ function Window({
   const { close, openName } = useModal();
 
   const { ref } = useHandleClick(close);
-  if (WindowName !== openName) return null;
+  if (WindowName !== openName) {
+    console.log(
+      `this  is  window's name ${WindowName} and open's name is ${openName}`
+    );
+    return null;
+  }
   return createPortal(
     <Overlay>
       <StyledModal ref={ref}>

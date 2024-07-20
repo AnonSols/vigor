@@ -119,6 +119,7 @@ function CabinRow({ cabin }: { cabin: newCabinType }) {
                 </span>
               </Modal.Open>
             </Menus.List>
+
             <Modal.Window name="pencil">
               <CreateCabinForm cabin={cabin} />
             </Modal.Window>

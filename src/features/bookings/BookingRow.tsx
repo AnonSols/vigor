@@ -3,7 +3,7 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
-// import Modal from "../../ui/Modal";
+import Modal from "../../ui/Modal";
 //i'have'nt made a single commit today.
 
 import { formatCurrency } from "../../utils/helpers";
@@ -19,7 +19,7 @@ import {
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/hook/useCheckout";
-// import ConfirmDelete from "../../ui/ConfirmDelete";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBookings } from "./hooks/useDeleteBookings";
 //daytwoofdoingnothing
 
@@ -68,7 +68,7 @@ function BookingRow({ booking }: BookingRowType) {
   // can we start documenting already
 
   const { checkOut, isCheckingOut } = useCheckout();
-  const { deleteFn } = useDeleteBookings();
+  const { deleteFn, isDeleting } = useDeleteBookings();
 
   const {
     startDate,
@@ -109,54 +109,65 @@ function BookingRow({ booking }: BookingRowType) {
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      {/* <Modal> */}
-      <Menus.Menu>
-        <Menus.Toggle id={id} />
-        <Menus.List id={id}>
-          <Menus.Button
-            icon={<HiEye />}
-            click={() => navigate(`/bookings/${id}`)}
-          >
-            See details
-          </Menus.Button>
+      <Modal>
+        <Modal.Window name="Delete">
+          <ConfirmDelete
+            onConfirm={() => deleteFn(id)}
+            resourceName="booking"
+            disabled={isDeleting}
+          />
+        </Modal.Window>
 
-          {status === "Unconfirmed" && (
+        <Menus.Menu>
+          <Menus.Toggle id={id} />
+          <Menus.List id={id}>
             <Menus.Button
-              icon={<HiArrowDownOnSquare />}
-              click={() => navigate(`/checkin/${id}`)}
+              icon={<HiEye />}
+              click={() => navigate(`/bookings/${id}`)}
             >
-              Check in
+              See details
             </Menus.Button>
-          )}
-          {status === "Checked-in" && (
-            <Menus.Button
-              icon={<HiArrowUpOnSquare />}
-              click={() => checkOut({ id })}
-              loading={isCheckingOut}
-            >
-              Check out
-            </Menus.Button>
-          )}
 
-          <Menus.Button icon={<HiTrash />} click={() => deleteFn(id)}>
-            <span>Delete</span>
-          </Menus.Button>
-          {/* <Modal.Open opens="delete">
+            {status === "Unconfirmed" && (
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                click={() => navigate(`/checkin/${id}`)}
+              >
+                Check in
+              </Menus.Button>
+            )}
+            {status === "Checked-in" && (
+              <Menus.Button
+                icon={<HiArrowUpOnSquare />}
+                click={() => checkOut({ id })}
+                loading={isCheckingOut}
+              >
+                Check out
+              </Menus.Button>
+            )}
+
+            <Modal.Open opens="Delete">
+              <span>
+                <Menus.Button icon={<HiTrash />}> Delete </Menus.Button>
+              </span>
+            </Modal.Open>
+
+            {/* <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash />}>
                 <span>Delete</span>
               </Menus.Button>
             </Modal.Open> */}
-        </Menus.List>
-      </Menus.Menu>
+          </Menus.List>
+        </Menus.Menu>
 
-      {/* <Modal.Window name="delete">
+        {/* <Modal.Window name="delete">
           <ConfirmDelete
             onConfirm={() => deleteFn(id)}
             resourceName="booking"
             disabled={isDeleting}
           />
         </Modal.Window> */}
-      {/* </Modal> */}
+      </Modal>
     </Table.row>
   );
 }

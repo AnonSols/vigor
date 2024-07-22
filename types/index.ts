@@ -6,7 +6,8 @@ export enum tableData {
 CABINS='cabins',
 BOOKINGS='bookings',
 SETTINGS='settings',
-GUESTS='guests'
+GUESTS='guests',
+USER='user'
 }
 
  export enum Page {

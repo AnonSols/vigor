@@ -151,22 +151,8 @@ function BookingRow({ booking }: BookingRowType) {
                 <Menus.Button icon={<HiTrash />}> Delete </Menus.Button>
               </span>
             </Modal.Open>
-
-            {/* <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>
-                <span>Delete</span>
-              </Menus.Button>
-            </Modal.Open> */}
           </Menus.List>
         </Menus.Menu>
-
-        {/* <Modal.Window name="delete">
-          <ConfirmDelete
-            onConfirm={() => deleteFn(id)}
-            resourceName="booking"
-            disabled={isDeleting}
-          />
-        </Modal.Window> */}
       </Modal>
     </Table.row>
   );

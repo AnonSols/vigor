@@ -103,12 +103,8 @@ function Window({
   const { close, openName } = useModal();
 
   const { ref } = useHandleClick(close);
-  if (WindowName !== openName) {
-    console.log(
-      `this  is  window's name ${WindowName} and open's name is ${openName}`
-    );
-    return null;
-  }
+  if (WindowName !== openName) return null;
+
   return createPortal(
     <Overlay>
       <StyledModal ref={ref}>

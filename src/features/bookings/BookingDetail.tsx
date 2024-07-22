@@ -14,6 +14,9 @@ import useBooking from "./hooks/useBooking";
 import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/hook/useCheckout";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteBookings } from "./hooks/useDeleteBookings";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -26,6 +29,8 @@ function BookingDetail() {
   const { data, isLoading } = useBooking();
   const { checkOut, isCheckingOut } = useCheckout();
   const moveBack = useMoveBack();
+
+  const { deleteFn, isDeleting } = useDeleteBookings();
 
   const booking = data as BookingType;
   if (isLoading) return <Spinner />;
@@ -56,6 +61,24 @@ function BookingDetail() {
             Check out
           </Button>
         )}
+
+        <Modal>
+          <Modal.Open opens="delete">
+            <span>
+              <Button variation="danger">Delete</Button>
+            </span>
+          </Modal.Open>
+
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              onConfirm={() => {
+                deleteFn(bookingsId, { onSettled: () => moveBack() });
+              }}
+              disabled={isDeleting}
+              resourceName="booking"
+            />
+          </Modal.Window>
+        </Modal>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

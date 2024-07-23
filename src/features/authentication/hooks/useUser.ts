@@ -6,9 +6,8 @@ export function useUser() {
 
 const {data:user,isLoading} = useQuery({
     queryKey:[`${tableData.USER}`],
-    queryFn:getCurrentUser
+    queryFn:getCurrentUser,
 });
-
 
 return {user,isLoading,isAuthenticated: user?.role === 'authenticated'}
 }

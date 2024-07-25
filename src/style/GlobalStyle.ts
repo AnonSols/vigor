@@ -66,6 +66,25 @@ const GlboalStyle = createGlobalStyle`
   transition: background-color 0.3s, border 0.3s;
 }
 
+*::-webkit-scrollbar {
+  width: 12px;
+  transition:all 1s;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-grey-100); 
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background:var(--color-indigo-700); 
+  border-radius:10px
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var( --color-grey-700); 
+  transition:color 2s ease-in;
+}
+
 html {
   font-size: 62.5%;
 }

@@ -12,14 +12,26 @@ const LoginLayout = styled.main`
   gap: 3.2rem;
   background-color: var(--color-grey-50);
 `;
+const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  bottom: 2rem;
+  justify-content: center;
+`;
 
 function Login() {
+  const year = new Date().getFullYear();
   return (
-    <LoginLayout>
-      <Logo />
-      <Heading as="h4">Log in to your account</Heading>
-      <LoginForm />
-    </LoginLayout>
+    <>
+      <LoginLayout>
+        <Logo />
+        <Heading as="h4">Log in to your account</Heading>
+        <LoginForm />
+      </LoginLayout>
+      <Footer>Copyright ©️ {year} | A Rabahh product</Footer>
+    </>
   );
 }
 

@@ -7,6 +7,7 @@ const {mutate:signUp,isLoading:isSigningUp} = useMutation({
     mutationFn:SignupApi,
     onSuccess:()=>{
         toast.success("User has been successfully singed up,Please confirm email!")
+        toast.success("Please confirm email!")
     
     },
     onError:(error:Error)=>{

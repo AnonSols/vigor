@@ -1,26 +1,42 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-
-import { useUser } from "./useUser";
+import { useUser } from "./hooks/useUser";
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
+
+  type userProp = {
+    email?: string;
+    user_metadata: { fullName: string };
+  };
+
+  const { user } = useUser();
+
+  if (!user || !user.user_metadata || !("fullName" in user.user_metadata)) {
+    return null; // or a loading indicator, or an error message
+  }
+
+  const modifiedUser: userProp = {
+    email: user.email,
+    user_metadata: {
+      fullName: user.user_metadata.fullName,
     },
-  } = useUser();
+  };
+
+  const {
+    email,
+    user_metadata: { fullName: currentFullName },
+  } = modifiedUser;
 
   const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  // const [avatar, setAvatar] = useState<FileList | null>(null);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
   }
 
@@ -41,7 +57,7 @@ function UpdateUserDataForm() {
         <FileInput
           id="avatar"
           accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+          // onChange={(e) => setAvatar(e.target.files ? e.target.files[0] : null)}
         />
       </FormRow>
       <FormRow>

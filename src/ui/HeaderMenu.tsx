@@ -21,7 +21,8 @@ const Tooltip = styled.div`
   .tooltiptext {
     visibility: hidden;
     // width: 120px;
-    background-color: #555;
+    font-size: 1.3rem;
+    background-color: var(--color-grey-400);
     color: #fff;
     text-align: center;
     padding: 5px;
@@ -30,26 +31,26 @@ const Tooltip = styled.div`
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
-    bottom: -100%;
+    bottom: -120%;
     left: 50%;
-    margin-left: -30px;
+    margin-left: -28px;
 
     /* Fade in tooltip */
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.49s;
   }
 
   /* Tooltip arrow */
-  .tooltiptext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
+  // .tooltiptext::after {
+  //   content: "";
+  //   position: absolute;
+  //   bottom: 100%;
+  //   left: 50%;
+  //   margin-left: -13px;
+  //   border-width: 5px;
+  //   border-style: solid;
+  //   border-color: #555 transparent transparent transparent;
+  // }
 
   /* Show the tooltip text when you mouse over the tooltip container */
   &:hover .tooltiptext {

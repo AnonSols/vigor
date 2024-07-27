@@ -11,6 +11,7 @@ function Account() {
       <Row>
         <Heading as="h3">Update user data</Heading>
         <UpdateUserDataForm />
+        {/* <UpdatePasswordForm /> */}
       </Row>
 
       <Row>

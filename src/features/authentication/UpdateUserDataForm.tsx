@@ -6,18 +6,18 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useUser } from "./hooks/useUser";
+import { useUpdateUser } from "./hooks/useUpdateUser";
+type userProp = {
+  email?: string;
+  user_metadata: { fullName: string };
+};
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
 
-  type userProp = {
-    email?: string;
-    user_metadata: { fullName: string };
-  };
-
   const { user } = useUser();
-
-  if (!user || !user.user_metadata || !("fullName" in user.user_metadata)) {
+  const { updateUser, isUpdatingUser } = useUpdateUser();
+  if (!user || !user.user_metadata) {
     return null; // or a loading indicator, or an error message
   }
 
@@ -34,12 +34,14 @@ function UpdateUserDataForm() {
   } = modifiedUser;
 
   const [fullName, setFullName] = useState(currentFullName);
-  // const [avatar, setAvatar] = useState<FileList | null>(null);
+  const [avatar, setAvatar] = useState<File | null>(null);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    updateUser({ fullName, avatar });
   }
 
+  handleSubmit;
   return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Email address">
@@ -49,6 +51,7 @@ function UpdateUserDataForm() {
         <Input
           type="text"
           value={fullName}
+          disabled={isUpdatingUser}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
         />
@@ -57,14 +60,20 @@ function UpdateUserDataForm() {
         <FileInput
           id="avatar"
           accept="image/*"
-          // onChange={(e) => setAvatar(e.target.files ? e.target.files[0] : null)}
+          disabled={isUpdatingUser}
+          onChange={(e) => setAvatar(e.target.files && e.target.files[0])}
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" variation="secondary">
+        <Button
+          type="reset"
+          // onClick={() => reset()}
+          disabled={isUpdatingUser}
+          variation="secondary"
+        >
           Cancel
         </Button>
-        <Button>Update account</Button>
+        <Button disabled={isUpdatingUser}>Update account</Button>
       </FormRow>
     </Form>
   );

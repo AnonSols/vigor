@@ -1,6 +1,6 @@
 
 
-import supabase from "./supabase";
+import supabase, { SUPABASE_URL } from "./supabase";
 
 export async function LoginApi({email,password}:{email:string, password:string}){
 
@@ -47,13 +47,13 @@ export async function getCurrentUser() {
 
 
 interface updateCurrentUserProtocol {
-  password:string,
-  fullName:string,
-  avatar:string
+  password?:string,
+  fullName?:string,
+  avatar?:File | null;
 }
 export async function updateCurrentUser({password,  fullName, avatar}:updateCurrentUserProtocol) {
 
-  let updateUserData:{ data: { fullName: string; }; } | { password: string; };
+  let updateUserData:{ data: { fullName?: string; }; } | { password?: string; } = {data:{}}
   if (password) updateUserData = {password}
   if (fullName) updateUserData = {data:{fullName}}
 //1. Update password or fullName
@@ -71,7 +71,14 @@ const {error:StorageError} = await supabase.storage.from("avatars").upload(fileN
 
 if (StorageError) throw new Error(StorageError.message)
 //3. update  avatar in the user
+const {data:updatedUser, error:updatedUserError} = await supabase.auth.updateUser({data:{
+  fullName,
+  avatar:`${SUPABASE_URL}/storage/v1/object/public/avatars/${fileName}`
+}})
 
+if (updatedUserError) throw new Error(updatedUserError.message)
+
+  return updatedUser;
 
 }
           

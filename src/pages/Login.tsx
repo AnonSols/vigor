@@ -30,7 +30,7 @@ function Login() {
         <Heading as="h4">Log in to your account</Heading>
         <LoginForm />
       </LoginLayout>
-      <Footer>Copyright ©️ {year} | A Rabahh product</Footer>
+      <Footer>Copyright ©️ {year} | A Rabahh's product</Footer>
     </>
   );
 }

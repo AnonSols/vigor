@@ -3,6 +3,7 @@ import { Logout } from "../features/authentication/Logout";
 import HeaderTab from "./HeaderTab";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineUser } from "react-icons/hi2";
+import DarkModeToggle from "./DarkModeToggle";
 
 const StyledHeader = styled.ul`
   display: flex;
@@ -71,6 +72,13 @@ const HeaderMenu = () => {
           <div className="tooltiptext">Account</div>
         </Tooltip>
       </li>
+      <li>
+        <Tooltip>
+          <DarkModeToggle />
+          <div className="tooltiptext">Toggle</div>
+        </Tooltip>
+      </li>
+
       <li>
         <Tooltip>
           <Logout />

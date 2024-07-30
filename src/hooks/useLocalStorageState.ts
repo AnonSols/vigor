@@ -14,5 +14,5 @@ export function useLocalStorageState(initialState: boolean, key: string) {
     [value, key]
   );
 
-  return {value,setValue};
+  return [value,setValue] as const;
 }

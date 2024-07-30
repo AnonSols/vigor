@@ -53,7 +53,7 @@ function CreateCabinForm({ onCloseModal }: CabinProp) {
       type={onCloseModal ? "modal" : "regular"}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <FormRow label="Cabin name" error={`${errors?.name?.message}`}>
+      <FormRow label="Room name" error={`${errors?.name?.message}`}>
         <Input
           type="text"
           id="name"
@@ -119,7 +119,7 @@ function CreateCabinForm({ onCloseModal }: CabinProp) {
         {/* <Textarea type="number" id="description" defaultValue="" /> */}
       </FormRow>
 
-      <FormRow error={`${errors?.image?.message}`} label="Cabin photo">
+      <FormRow error={`${errors?.image?.message}`} label="Room photo">
         <FileInput
           id="image"
           accept="image/*"

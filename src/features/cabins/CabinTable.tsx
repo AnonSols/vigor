@@ -55,7 +55,7 @@ function CabinTable() {
       <Table column="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
         <Table.header>
           <div></div>
-          <div>Cabin</div>
+          <div>Room</div>
           <div>Capicty</div>
           <div>Price</div>
           <div>Discount</div>

@@ -133,8 +133,9 @@ const GlboalStyle = createGlobalStyle`
   transition:color 2s ease-in;
 }
 
-html {
+html,body {
   font-size: 62.5%;
+  height:100%
 }
 
 body {

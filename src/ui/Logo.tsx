@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useDarkModeToggle } from "../context/DarkModeToggleContext";
 
 const StyledLogo = styled.div`
   text-align: center;
@@ -10,9 +11,14 @@ const Img = styled.img`
 `;
 
 function Logo() {
+  const { isDarkMode } = useDarkModeToggle();
   return (
     <StyledLogo>
-      <Img src="/public\adlen.png" alt="Logo" />
+      {isDarkMode ? (
+        <Img src="/public\Rabahh.png" alt="Logo" />
+      ) : (
+        <Img src="/public\logoblackpng.png" alt="Logo" />
+      )}
     </StyledLogo>
   );
 }

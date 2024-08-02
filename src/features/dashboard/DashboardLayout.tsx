@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import {
+  useGetBookingStays,
+  // useGetBookingAfterDate,
+} from "./hooks/useGetBookingStays.ts";
+import Spinner from "../../ui/Spinner.tsx";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -10,6 +15,11 @@ const StyledDashboardLayout = styled.div`
 //Booking are actual sales
 //stays are actual checkin. guests staying in the hotel.
 function DashboardLayout() {
+  // const {} = useGetBookingAfterDate();
+  const { stay, isLoadingStays } = useGetBookingStays();
+
+  if (isLoadingStays) return <Spinner />;
+  console.log(stay);
   return (
     <StyledDashboardLayout>
       <div>Statistic</div>

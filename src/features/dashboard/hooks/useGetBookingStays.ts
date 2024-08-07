@@ -3,7 +3,13 @@ import  {subDays } from "date-fns"
 import { useQuery } from "@tanstack/react-query";
 import {  getStaysAfterDate } from "../../../services/apiBookings";
 import { tableData } from "../../../../types";
-export function useGetBookingStays() {
+import { BookingType } from "../../../../types/bookingsTypes";
+
+export function useGetBookingStays():{
+    isLoadingStays: boolean;
+    stay: BookingType[] | undefined;
+    confirmedStays: BookingType[] | undefined;
+} {
     const [searchParams] = useSearchParams();
 
     const getDate = !searchParams.get("last") ? 7 : Number(searchParams.get("last"));
@@ -16,8 +22,8 @@ const {isLoading:isLoadingStays,data:stay} = useQuery({
     queryKey:[`${tableData.BOOKINGS}, last-${getDate}`]
 })
 
-const currentGuestState = stay?.filter(user=>user.status ===  "Checked-in" || user.status === "Checked-out")
+const confirmedStays = stay?.filter(user=>user?.status ===  "Checked-in" || user?.status === "Checked-out")
 
 
-return  {isLoadingStays, currentGuestState, stay}
+return  {isLoadingStays, stay, confirmedStays}
 }

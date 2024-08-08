@@ -1,6 +1,6 @@
 
 import { Page } from "../../types";
-import {   getBookingType } from "../../types/bookingsTypes";
+import {   BookingType, getBookingType } from "../../types/bookingsTypes";
 import { capitalizeFirstLetter, getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
@@ -76,7 +76,6 @@ export async function getBookingsAfterDate(date:string) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-console.log(data)
   return data;
 }
 
@@ -84,16 +83,17 @@ console.log(data)
 export async function getStaysAfterDate(date:string) {
   const { data, error } = await supabase
     .from("bookings") 
-    .select("*, guests(fullName)")
+    .select("*, guests(name)")
     .gte("startDate", date)
     .lte("startDate", getToday());
 
+console.log(data)
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-// console.log('chelk')
-  return data;
+  
+  return data as BookingType[]|undefined;
 }
 
 // Activity means that there is a check in or a check out today

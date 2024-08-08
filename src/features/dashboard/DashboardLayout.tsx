@@ -20,14 +20,25 @@ const StyledDashboardLayout = styled.div`
 
 function DashboardLayout() {
   // const {} = useGetBookingAfterDate();
-  const { isLoadingAfterDate, data: Booking } = useGetBookingAfterDate();
-  const { isLoadingStays, stay, confirmedStays } = useGetBookingStays();
-
-  if (isLoadingAfterDate || isLoadingStays) return <Spinner />;
+  const {
+    isLoadingAfterDate,
+    data: Booking,
+    numDays,
+  } = useGetBookingAfterDate();
+  const { isLoadingStays, cabins, isLoadingCabins, stay, confirmedStays } =
+    useGetBookingStays();
+  if (isLoadingAfterDate || isLoadingCabins || isLoadingStays)
+    return <Spinner />;
 
   return (
     <StyledDashboardLayout>
-      <Stats stay={stay} bookings={Booking} confirmedState={confirmedStays} />
+      <Stats
+        stay={stay}
+        bookings={Booking}
+        confirmedState={confirmedStays}
+        cabins={cabins}
+        numDays={numDays}
+      />
       <div>Today's activity</div>
       <div>chart stay duration</div>
       <div>chart sales</div>

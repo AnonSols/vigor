@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { formatCurrency } from "../../utils/helpers";
 
 const StyledStat = styled.div`
   /* Box */
@@ -53,14 +54,29 @@ interface StatInterface {
   title: string;
   value: number | undefined;
   color: string;
+  pec?: boolean;
+  sales?: boolean;
+  show?: boolean;
 }
 
-function Stat({ icon, title, value, color }: StatInterface) {
+function Stat({
+  icon,
+  title,
+  value,
+  color,
+  pec,
+  sales,
+  show = true,
+}: StatInterface) {
   return (
     <StyledStat>
       <Icon color={color}>{icon}</Icon>
       <Title>{title}</Title>
-      <Value>{value}</Value>
+      <Value>
+        {show ? value : ""}
+        {pec && `${value}%`}
+        {sales && formatCurrency(value as number)}
+      </Value>
     </StyledStat>
   );
 }

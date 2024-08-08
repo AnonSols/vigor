@@ -9,18 +9,18 @@ export interface dataBookingInterface {
      totalPrice: number;
     extraPrice: number;
 }
-export function useGetBookingAfterDate():{isLoadingAfterDate:boolean, data:dataBookingInterface[]|undefined} {
+export function useGetBookingAfterDate():{isLoadingAfterDate:boolean, data:dataBookingInterface[]|undefined , numDays:number} {
     const [searchParams] = useSearchParams();
 
-    const getDate = !searchParams.get("last") ? 7 : Number(searchParams.get("last"));
+    const getDays = !searchParams.get("last") ? 7 : Number(searchParams.get("last"));
 
 
-const queryDate =  subDays(new Date(), getDate).toISOString()
+const queryDate =  subDays(new Date(), getDays).toISOString()
 
 const {isLoading:isLoadingAfterDate,data} = useQuery({
     queryFn:()=>  getBookingsAfterDate(queryDate),
-    queryKey:[`${tableData.BOOKINGS}, last-${getDate}`]
+    queryKey:[`${tableData.BOOKINGS}, last-${getDays}`]
 })
 
-return  {isLoadingAfterDate,  data}
+return  {isLoadingAfterDate,  data, numDays:getDays}
 }

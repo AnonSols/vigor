@@ -7,15 +7,16 @@ import {
 import { dataBookingInterface } from "./hooks/useGetBookingsAfterDate";
 import Stat from "./Stat";
 import { BookingType } from "../../../types/bookingsTypes";
-import { formatCurrency } from "../../utils/helpers";
+import { newCabinType } from "../../../types";
 
 interface StatsData {
   bookings: dataBookingInterface[] | undefined;
   stay: BookingType[] | undefined;
-
+  cabins: newCabinType[] | undefined;
   confirmedState: BookingType[] | undefined;
+  numDays: number;
 }
-const Stats = ({ bookings, confirmedState, stay }: StatsData) => {
+const Stats = ({ bookings, confirmedState, cabins, numDays }: StatsData) => {
   //1 Actual sales length
   const numBookings = bookings && bookings.length;
 
@@ -29,11 +30,18 @@ const Stats = ({ bookings, confirmedState, stay }: StatsData) => {
   //3 Get stays which are the current checkins, confirmed stays
   const confirmedStays = confirmedState && confirmedState.length;
 
-  //4 Occupancy rate - num of night / amount of cabin
+  //4 Occupancy rate - num of night / amount of cabin(number of cabins * number of days)
+  const confirmedNightStaysLength = confirmedState?.reduce(
+    (acc, curr) => acc + curr.numNights,
+    0
+  );
 
-  const numNights = stay && stay.filter((guest) => guest.numNights != 0);
-  console.log(numNights);
-  console.log(confirmedState);
+  const cabinsLength = cabins && cabins.length * numDays;
+  const occupancyRate =
+    confirmedNightStaysLength &&
+    cabinsLength &&
+    (confirmedNightStaysLength / cabinsLength) * 100;
+
   return (
     <>
       <Stat
@@ -45,9 +53,11 @@ const Stats = ({ bookings, confirmedState, stay }: StatsData) => {
 
       <Stat
         title="Sales"
-        value={sales && Number(formatCurrency(sales))}
+        value={sales && sales}
         icon={<HiOutlineBanknotes />}
         color="green"
+        sales={true}
+        show={false}
       />
 
       <Stat
@@ -59,9 +69,11 @@ const Stats = ({ bookings, confirmedState, stay }: StatsData) => {
 
       <Stat
         title="Occupancy rate"
-        value={numBookings}
+        value={occupancyRate && Math.round(occupancyRate)}
+        pec={true}
         icon={<HiOutlineChartBar />}
         color="yellow"
+        show={false}
       />
     </>
   );

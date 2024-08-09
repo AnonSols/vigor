@@ -17,7 +17,7 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
-
+5ONJT3RTAMGRMHRD
 const startDataLight = [
   {
     duration: "1 night",

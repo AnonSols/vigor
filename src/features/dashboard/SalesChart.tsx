@@ -1,5 +1,18 @@
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { useDarkModeToggle } from "../../context/DarkModeToggleContext";
+import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import { dataBookingInterface } from "./hooks/useGetBookingsAfterDate";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -11,49 +24,132 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-const fakeData = [
-  { label: "Jan 09", totalSales: 480, extrasSales: 20 },
-  { label: "Jan 10", totalSales: 580, extrasSales: 100 },
-  { label: "Jan 11", totalSales: 550, extrasSales: 150 },
-  { label: "Jan 12", totalSales: 600, extrasSales: 50 },
-  { label: "Jan 13", totalSales: 700, extrasSales: 150 },
-  { label: "Jan 14", totalSales: 800, extrasSales: 150 },
-  { label: "Jan 15", totalSales: 700, extrasSales: 200 },
-  { label: "Jan 16", totalSales: 650, extrasSales: 200 },
-  { label: "Jan 17", totalSales: 600, extrasSales: 300 },
-  { label: "Jan 18", totalSales: 550, extrasSales: 100 },
-  { label: "Jan 19", totalSales: 700, extrasSales: 100 },
-  { label: "Jan 20", totalSales: 800, extrasSales: 200 },
-  { label: "Jan 21", totalSales: 700, extrasSales: 100 },
-  { label: "Jan 22", totalSales: 810, extrasSales: 50 },
-  { label: "Jan 23", totalSales: 950, extrasSales: 250 },
-  { label: "Jan 24", totalSales: 970, extrasSales: 100 },
-  { label: "Jan 25", totalSales: 900, extrasSales: 200 },
-  { label: "Jan 26", totalSales: 950, extrasSales: 300 },
-  { label: "Jan 27", totalSales: 850, extrasSales: 200 },
-  { label: "Jan 28", totalSales: 900, extrasSales: 100 },
-  { label: "Jan 29", totalSales: 800, extrasSales: 300 },
-  { label: "Jan 30", totalSales: 950, extrasSales: 200 },
-  { label: "Jan 31", totalSales: 1100, extrasSales: 300 },
-  { label: "Feb 01", totalSales: 1200, extrasSales: 400 },
-  { label: "Feb 02", totalSales: 1250, extrasSales: 300 },
-  { label: "Feb 03", totalSales: 1400, extrasSales: 450 },
-  { label: "Feb 04", totalSales: 1500, extrasSales: 500 },
-  { label: "Feb 05", totalSales: 1400, extrasSales: 600 },
-  { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
-];
+// const fakeData = [
+//   { label: "Jan 09", totalSales: 480, extrasSales: 20 },
+//   { label: "Jan 10", totalSales: 580, extrasSales: 100 },
+//   { label: "Jan 11", totalSales: 550, extrasSales: 150 },
+//   { label: "Jan 12", totalSales: 600, extrasSales: 50 },
+//   { label: "Jan 13", totalSales: 700, extrasSales: 150 },
+//   { label: "Jan 14", totalSales: 800, extrasSales: 150 },
+//   { label: "Jan 15", totalSales: 700, extrasSales: 200 },
+//   { label: "Jan 16", totalSales: 650, extrasSales: 200 },
+//   { label: "Jan 17", totalSales: 600, extrasSales: 300 },
+//   { label: "Jan 18", totalSales: 550, extrasSales: 100 },
+//   { label: "Jan 19", totalSales: 700, extrasSales: 100 },
+//   { label: "Jan 20", totalSales: 800, extrasSales: 200 },
+//   { label: "Jan 21", totalSales: 700, extrasSales: 100 },
+//   { label: "Jan 22", totalSales: 810, extrasSales: 50 },
+//   { label: "Jan 23", totalSales: 950, extrasSales: 250 },
+//   { label: "Jan 24", totalSales: 970, extrasSales: 100 },
+//   { label: "Jan 25", totalSales: 900, extrasSales: 200 },
+//   { label: "Jan 26", totalSales: 950, extrasSales: 300 },
+//   { label: "Jan 27", totalSales: 850, extrasSales: 200 },
+//   { label: "Jan 28", totalSales: 900, extrasSales: 100 },
+//   { label: "Jan 29", totalSales: 800, extrasSales: 300 },
+//   { label: "Jan 30", totalSales: 950, extrasSales: 200 },
+//   { label: "Jan 31", totalSales: 1100, extrasSales: 300 },
+//   { label: "Feb 01", totalSales: 1200, extrasSales: 400 },
+//   { label: "Feb 02", totalSales: 1250, extrasSales: 300 },
+//   { label: "Feb 03", totalSales: 1400, extrasSales: 450 },
+//   { label: "Feb 04", totalSales: 1500, extrasSales: 500 },
+//   { label: "Feb 05", totalSales: 1400, extrasSales: 600 },
+//   { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
+// ];
 
-const isDarkMode = true;
-const colors = isDarkMode
-  ? {
-      totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
-      extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
-      text: "#e5e7eb",
-      background: "#18212f",
-    }
-  : {
-      totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-      extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
-      text: "#374151",
-      background: "#fff",
+interface salesChartInterface {
+  bookings: dataBookingInterface[] | undefined;
+  numDays: number;
+}
+function SalesChart({ numDays, bookings }: salesChartInterface) {
+  const { isDarkMode } = useDarkModeToggle();
+
+  const colors = isDarkMode
+    ? {
+        totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
+        extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
+        text: "#e5e7eb",
+        background: "#18212f",
+      }
+    : {
+        totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
+        extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
+        text: "#374151",
+        background: "#fff",
+      };
+
+  //the eachDayOfInterval from datefns helps to get the date in-between our given date range.
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays),
+    end: new Date(),
+  });
+
+  const date = allDates.map((date) => {
+    return {
+      label: format(date, "MM dd"),
+      totalSales:
+        bookings &&
+        bookings
+          .filter((booking) => isSameDay(date, booking.created_at))
+          .reduce((acc, curr) => acc + curr.totalPrice, 0),
+      extrasSales:
+        bookings &&
+        bookings
+          .filter((booking) => isSameDay(date, booking.created_at))
+          .reduce((acc, curr) => acc + curr.extraPrice, 0),
     };
+  });
+
+  return (
+    <>
+      <StyledSalesChart>
+        <Heading as="h2"> Sales </Heading>
+
+        <ResponsiveContainer height={300} width="100%">
+          <AreaChart
+            data={date}
+            margin={{
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20,
+            }}
+          >
+            <XAxis
+              dataKey="label"
+              tick={{ fill: colors.text }}
+              tickLine={{ stroke: colors.text }}
+            />
+            <YAxis
+              unit="NGN"
+              tick={{ fill: colors.text }}
+              tickLine={{ stroke: colors.text }}
+            />
+            <CartesianGrid strokeDasharray="4" />
+            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+
+            <Area
+              dataKey={"totalSales"}
+              type="monotone"
+              stroke={colors.totalSales.stroke}
+              fill={colors.totalSales.fill}
+              name={"Total Sales"}
+              unit={"NGN"}
+              strokeWidth={3}
+            />
+            <Area
+              dataKey={"extrasSales"}
+              type="monotone"
+              stroke={colors.extrasSales.stroke}
+              fill={colors.extrasSales.fill}
+              name={"Extras Sales"}
+              unit={"NGN"}
+              strokeWidth={3}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </StyledSalesChart>
+    </>
+  );
+}
+
+export default SalesChart;

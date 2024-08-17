@@ -102,7 +102,10 @@ function SalesChart({ numDays, bookings }: salesChartInterface) {
   return (
     <>
       <StyledSalesChart>
-        <Heading as="h2"> Sales </Heading>
+        <Heading as="h2">
+          {" "}
+          Sales from {} to {}
+        </Heading>
 
         <ResponsiveContainer height={300} width="100%">
           <AreaChart

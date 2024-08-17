@@ -17,7 +17,6 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
-5ONJT3RTAMGRMHRD
 const startDataLight = [
   {
     duration: "1 night",
@@ -130,3 +129,12 @@ function prepareData(startData, stays) {
 
   return data;
 }
+
+startDataLight;
+startDataDark;
+function DurationChart() {
+  return;
+  <ChartBox></ChartBox>;
+}
+
+export default DurationChart;

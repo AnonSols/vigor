@@ -154,8 +154,8 @@ function List({ id, children }: MenusChildren & { id: number }) {
   if (isOpenedId !== id) return null;
   return createPortal(
     <StyledList ref={ref} as="div" position={position}>
-      {children}
-    </StyledList>,
+      {children} 
+    </StyledList>,  
     document.body
   );
 }

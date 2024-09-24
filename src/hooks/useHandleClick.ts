@@ -20,3 +20,6 @@ export function useHandleClick(handlers:()=>void,listenCapturing=true) {
 
   return {ref}
 }
+
+
+//this is a minor comment to see where I stopped.

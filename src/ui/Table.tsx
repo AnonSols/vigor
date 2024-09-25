@@ -68,9 +68,11 @@ interface childrenType {
   children: ReactNode;
   role?: string;
 }
+  
 type TableContextProp = {
   column: string;
 };
+
 const TableContext = createContext<TableContextProp | undefined>(undefined);
 
 function Table({ children, column }: childrenType & { column: string }) {

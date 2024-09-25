@@ -96,6 +96,7 @@ export default function Pagination({ count }: { count?: number | null }) {
   }
 
   if (pageCount && pageCount <= 1) return null;
+  
   return (
     <StyledPagination>
       <P>

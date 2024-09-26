@@ -8,8 +8,9 @@ const LoginLayout = styled.main`
   display: grid;
   grid-template-columns: 48rem;
   align-content: center;
+  grid-template-rows:3fr auto;
   justify-content: center;
-  gap: 3.2rem;
+  gap: 2.8rem;
   background-color: var(--color-grey-50);
 `;
 const Footer = styled.div`
@@ -26,11 +27,17 @@ function Login() {
   return (
     <>
       <LoginLayout>
+        <section>
+
+       <br /> <br />
         <Logo />
+       
         <Heading as="h4">Log in to your account</Heading>
+       <br /> <br />
         <LoginForm />
+        </section>
+        <Footer>Copyright ©️ {year} | A Rabahh's product</Footer>
       </LoginLayout>
-      <Footer>Copyright ©️ {year} | A Rabahh's product</Footer>
     </>
   );
 }

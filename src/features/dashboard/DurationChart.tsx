@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { BookingType } from "../../../types/bookingsTypes";
+import Heading from "../../ui/Heading";
+import { Cell, Pie, PieChart, ResponsiveContainer,Tooltip,Legend } from "recharts";
 
 const ChartBox = styled.div`
   /* Box */
@@ -20,42 +23,42 @@ const ChartBox = styled.div`
 const startDataLight = [
   {
     duration: "1 night",
-    value: 0,
+    value: 4,
     color: "#ef4444",
   },
   {
     duration: "2 nights",
-    value: 0,
+    value: 7,
     color: "#f97316",
   },
   {
     duration: "3 nights",
-    value: 0,
+    value: 4,
     color: "#eab308",
   },
   {
     duration: "4-5 nights",
-    value: 0,
+    value: 7,
     color: "#84cc16",
   },
   {
     duration: "6-7 nights",
-    value: 0,
+    value: 6,
     color: "#22c55e",
   },
   {
     duration: "8-14 nights",
-    value: 0,
+    value: 12,
     color: "#14b8a6",
   },
   {
     duration: "15-21 nights",
-    value: 0,
+    value: 15,
     color: "#3b82f6",
   },
   {
     duration: "21+ nights",
-    value: 0,
+    value: 7,
     color: "#a855f7",
   },
 ];
@@ -103,38 +106,74 @@ const startDataDark = [
   },
 ];
 
-function prepareData(startData, stays) {
-  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
+// function prepareData(startData, stays) {
+//   // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
-  function incArrayValue(arr, field) {
-    return arr.map((obj) =>
-      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
-    );
-  }
+//   function incArrayValue(arr, field) {
+//     return arr.map((obj) =>
+//       obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
+//     );
+//   }
 
-  const data = stays
-    .reduce((arr, cur) => {
-      const num = cur.numNights;
-      if (num === 1) return incArrayValue(arr, "1 night");
-      if (num === 2) return incArrayValue(arr, "2 nights");
-      if (num === 3) return incArrayValue(arr, "3 nights");
-      if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
-      if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
-      if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
-      if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
-      if (num >= 21) return incArrayValue(arr, "21+ nights");
-      return arr;
-    }, startData)
-    .filter((obj) => obj.value > 0);
+//   const data = stays
+//     .reduce((arr, cur) => {
+//       const num = cur.numNights;
 
-  return data;
-}
+//       if (num === 1) return incArrayValue(arr, "1 night");
+//       if (num === 2) return incArrayValue(arr, "2 nights");
+//       if (num === 3) return incArrayValue(arr, "3 nights");
+//       if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
+//       if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
+//       if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
+//       if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
+//       if (num >= 21) return incArrayValue(arr, "21+ nights");
+//       return arr;
+//     }, startData)
+//     .filter((obj) => obj.value > 0);
+
+//   return data;
+// }
 
 startDataLight;
 startDataDark;
-function DurationChart() {
-  return;
-  <ChartBox></ChartBox>;
+function DurationChart({
+  confirmedStays,
+}: {
+  confirmedStays: BookingType[] | undefined;
+}) {
+  confirmedStays;
+  return (
+    <ChartBox>
+      <Heading as="h2">Duration Chart</Heading>
+
+      <ResponsiveContainer width="100%" height={240}>
+        <PieChart>
+          <Pie
+            data={startDataLight}
+            nameKey="duration"
+            dataKey="value"
+            innerRadius={85}
+            outerRadius={110}
+            cx="40%"
+            cy="50%"
+            paddingAngle={3}
+          >
+            {startDataLight.map((entry) => (
+              <Cell
+                fill={entry.color}
+                stroke={entry.color}
+                key={entry.duration}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend verticalAlign="middle" align="right" iconSize={15} width='30%' layout="vertical" iconType="circle" />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartBox>
+  );
 }
 
 export default DurationChart;
+
+// If I'm to build rabahh core application from everything we know now, outline ever technology stack involved on delivering every section and why, after this we commence what we left

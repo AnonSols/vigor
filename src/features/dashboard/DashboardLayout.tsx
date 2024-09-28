@@ -8,6 +8,7 @@ import { useGetBookingStays } from "./hooks/useGetBookingStays.ts";
 import Spinner from "../../ui/Spinner.tsx";
 import Stats from "./Stats.tsx";
 import SalesChart from "./SalesChart.tsx";
+import DurationChart from "./DurationChart.tsx";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -41,7 +42,10 @@ function DashboardLayout() {
         numDays={numDays}
       />
       <div>Today's activity</div>
-      <div>chart stay duration</div>
+      
+        <DurationChart confirmedStays={confirmedStays}/>
+      
+    
       <SalesChart bookings={Booking} numDays={numDays} />
     </StyledDashboardLayout>
   );

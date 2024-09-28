@@ -9,14 +9,14 @@ import toast from "react-hot-toast";
   const { isLoading: isDeleting, mutate: deleteFn } = useMutation({
     mutationFn: deleteCabins,
     onSuccess: () => {
-      toast.success("Cabins Successfully deleted!");
+      toast.success("Room's Successfully deleted!");
       query.invalidateQueries({ queryKey: [tableData.CABINS] });
     },
     onError: ({ err }: { err: { message: string } }) => {
       toast.error(err.message);
     },
-  });
-
+  })
+  
   return {isDeleting, deleteFn}
  }
 

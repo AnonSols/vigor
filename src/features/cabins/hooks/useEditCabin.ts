@@ -10,7 +10,7 @@ export function useEditCabin() {
     mutationFn: ({ data, editId }: apiCreateCabinType) =>
       createEditCabin(data, editId),
     onSuccess: () => {
-      toast.success("Cabin is successfully edited!");
+      toast.success("Room is successfully edited!");
 
       query.invalidateQueries({ queryKey: [tableData.CABINS] });
     //   reset();

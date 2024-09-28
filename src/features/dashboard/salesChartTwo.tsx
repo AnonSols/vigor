@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
 import Heading from "../../ui/Heading";
@@ -6,13 +7,16 @@ import {
   AreaChart,
   CartesianGrid,
   ResponsiveContainer,
+
   Tooltip,
+
   XAxis,
   YAxis,
 } from "recharts";
 import { useDarkModeToggle } from "../../context/DarkModeToggleContext";
-import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import { dataBookingInterface } from "./hooks/useGetBookingsAfterDate";
+import { eachDayOfInterval, format, subDays } from "date-fns";
+import { isSameDay } from "date-fns/isSameDay";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -60,9 +64,10 @@ interface salesChartInterface {
   bookings: dataBookingInterface[] | undefined;
   numDays: number;
 }
-function SalesChart({ numDays, bookings }: salesChartInterface) {
-  const { isDarkMode } = useDarkModeToggle();
 
+function SalesChartTwo({bookings,numDays}:salesChartInterface) {
+  // const isDarkMode = true;
+  const { isDarkMode } = useDarkModeToggle();
   const colors = isDarkMode
     ? {
         totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
@@ -78,12 +83,12 @@ function SalesChart({ numDays, bookings }: salesChartInterface) {
       };
 
   //the eachDayOfInterval from datefns helps to get the date in-between our given date range.
-  const allDates:Array<Date|number|string> = eachDayOfInterval({
-    start: subDays(new Date(), numDays),
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays-1 ),
     end: new Date(),
   });
 
-  const date = allDates.map((date) => {
+  const data = allDates.map((date) => {
     return {
       label: format(date, "MM dd"),
       totalSales:
@@ -102,51 +107,43 @@ function SalesChart({ numDays, bookings }: salesChartInterface) {
   return (
     <>
       <StyledSalesChart>
-        <Heading as="h2">
-          {" "}
-          Sales from {format(allDates.at(0),'MMM dd yyyy')} to {format(allDates.at(-1),'MMM dd yyyy')}
-        </Heading>
+        <Heading as="h2"> Sales</Heading>
 
-        <ResponsiveContainer height={300} width="100%">
+        <ResponsiveContainer width={`100%`} height={300}>
           <AreaChart
-            data={date}
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
+            data={data}
+          
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
           >
+            <CartesianGrid strokeDasharray={4} />
+            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
             <XAxis
-              dataKey="label"
+              dataKey={"label"}
               tick={{ fill: colors.text }}
               tickLine={{ stroke: colors.text }}
             />
             <YAxis
-              unit="₦"
+              unit="NGN"
               tick={{ fill: colors.text }}
               tickLine={{ stroke: colors.text }}
             />
-            <CartesianGrid strokeDasharray="4" />
-            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
-
             <Area
-              dataKey={"totalSales"}
+              strokeWidth={2}
               type="monotone"
               stroke={colors.totalSales.stroke}
               fill={colors.totalSales.fill}
-              name={"Total Sales"}
-              unit={"₦"}
-              strokeWidth={3}
+              dataKey="totalSales"
+              name="Total Sales"
+              unit="₦"
             />
             <Area
-              dataKey={"extrasSales"}
+              strokeWidth={2}
               type="monotone"
               stroke={colors.extrasSales.stroke}
               fill={colors.extrasSales.fill}
-              name={"Extras Sales"}
-              unit={"₦"}
-              strokeWidth={3}
+              dataKey="extrasSales"
+              name="Extra Sales"
+              unit="₦"
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -155,4 +152,4 @@ function SalesChart({ numDays, bookings }: salesChartInterface) {
   );
 }
 
-export default SalesChart;
+export default SalesChartTwo;

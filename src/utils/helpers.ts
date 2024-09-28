@@ -24,11 +24,13 @@ export const getToday = function ({end}:{end?:boolean|false}={end:false}) {
 };
 
 export const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en", { style: "currency", currency: "NGN" }).format(
-    value
-  );
-
+  `₦${new Intl.NumberFormat("en", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value)}`;
+  
 export function capitalizeFirstLetter(word:string):string {
 if(!word) return word;
 return word.charAt(0).toUpperCase() + word.slice(1)
 }
+// ₦

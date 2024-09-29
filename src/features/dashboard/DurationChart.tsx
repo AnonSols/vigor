@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { BookingType } from "../../../types/bookingsTypes";
 import Heading from "../../ui/Heading";
-import { Cell, Pie, PieChart, ResponsiveContainer,Tooltip,Legend } from "recharts";
+import {
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { useDarkModeToggle } from "../../context/DarkModeToggleContext";
 
 const ChartBox = styled.div`
   /* Box */
@@ -20,50 +28,58 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
-const startDataLight = [
+type startDataInterface = {
+  duration: string;
+  value: number;
+  color: string;
+}[];
+
+const startDataLight: startDataInterface = [
   {
     duration: "1 night",
-    value: 4,
+    value: 0,
     color: "#ef4444",
   },
   {
     duration: "2 nights",
-    value: 7,
+    value: 0,
     color: "#f97316",
   },
   {
     duration: "3 nights",
-    value: 4,
+    value: 0,
     color: "#eab308",
   },
   {
     duration: "4-5 nights",
-    value: 7,
+    value: 0,
     color: "#84cc16",
   },
   {
     duration: "6-7 nights",
-    value: 6,
+    value: 0,
     color: "#22c55e",
   },
   {
     duration: "8-14 nights",
-    value: 12,
+    value: 0,
+
     color: "#14b8a6",
   },
   {
     duration: "15-21 nights",
-    value: 15,
+    value: 0,
+
     color: "#3b82f6",
   },
   {
     duration: "21+ nights",
-    value: 7,
+    value: 0,
     color: "#a855f7",
   },
 ];
 
-const startDataDark = [
+const startDataDark: startDataInterface = [
   {
     duration: "1 night",
     value: 0,
@@ -106,42 +122,48 @@ const startDataDark = [
   },
 ];
 
-// function prepareData(startData, stays) {
-//   // A bit ugly code, but sometimes this is what it takes when working with real data 😅
+function prepareData(startData: startDataInterface, stays: BookingType[]|undefined) {
+  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
-//   function incArrayValue(arr, field) {
-//     return arr.map((obj) =>
-//       obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
-//     );
-//   }
+  function incArrayValue(arr: startDataInterface, field: string) {
+    return arr.map((obj) =>
+      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
+    );
+  }
 
-//   const data = stays
-//     .reduce((arr, cur) => {
-//       const num = cur.numNights;
+  const data = stays?.reduce((arr, cur) => {
+      const num =   cur.numNights;
 
-//       if (num === 1) return incArrayValue(arr, "1 night");
-//       if (num === 2) return incArrayValue(arr, "2 nights");
-//       if (num === 3) return incArrayValue(arr, "3 nights");
-//       if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
-//       if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
-//       if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
-//       if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
-//       if (num >= 21) return incArrayValue(arr, "21+ nights");
-//       return arr;
-//     }, startData)
-//     .filter((obj) => obj.value > 0);
+      if (num === 1) return incArrayValue(arr, "1 night");
+      if (num === 2) return incArrayValue(arr, "2 nights");
+      if (num === 3) return incArrayValue(arr, "3 nights");
+      if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
+      if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
+      if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
+      if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
+      if (num >= 21) return incArrayValue(arr, "21+ nights");
+      return arr;
+    }, startData)
+    .filter((obj) => obj.value > 0);
 
-//   return data;
-// }
+  return data;
 
-startDataLight;
-startDataDark;
+  
+  
+}
+
+
+ 
 function DurationChart({
   confirmedStays,
 }: {
   confirmedStays: BookingType[] | undefined;
-}) {
+}) { 
   confirmedStays;
+const {isDarkMode} = useDarkModeToggle()
+  const startData = isDarkMode ? startDataDark : startDataLight;
+const data = prepareData(startData,confirmedStays);
+
   return (
     <ChartBox>
       <Heading as="h2">Duration Chart</Heading>
@@ -149,7 +171,7 @@ function DurationChart({
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie
-            data={startDataLight}
+            data={data}
             nameKey="duration"
             dataKey="value"
             innerRadius={85}
@@ -158,7 +180,7 @@ function DurationChart({
             cy="50%"
             paddingAngle={3}
           >
-            {startDataLight.map((entry) => (
+            {data?.map((entry) => (
               <Cell
                 fill={entry.color}
                 stroke={entry.color}
@@ -167,7 +189,14 @@ function DurationChart({
             ))}
           </Pie>
           <Tooltip />
-          <Legend verticalAlign="middle" align="right" iconSize={15} width='30%' layout="vertical" iconType="circle" />
+          <Legend
+            verticalAlign="middle"
+            align="right"
+            iconSize={15}
+            width={30}
+            layout="vertical"
+            iconType="circle"
+          />
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
@@ -176,4 +205,4 @@ function DurationChart({
 
 export default DurationChart;
 
-// If I'm to build rabahh core application from everything we know now, outline ever technology stack involved on delivering every section and why, after this we commence what we left
+

@@ -9,6 +9,7 @@ import Spinner from "../../ui/Spinner.tsx";
 import Stats from "./Stats.tsx";
 import SalesChart from "./SalesChart.tsx";
 import DurationChart from "./DurationChart.tsx";
+import TodayActivity from "../check-in-out/TodayActivity.tsx";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -41,7 +42,7 @@ function DashboardLayout() {
         cabins={cabins}
         numDays={numDays}
       />
-      <div>Today's activity</div>
+      <TodayActivity />
       
         <DurationChart confirmedStays={confirmedStays}/>
       

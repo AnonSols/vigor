@@ -35,8 +35,10 @@ const NoActivity = styled.p`
   font-weight: 500;
   margin-top: 0.8rem;
 `;
-
-function Today() {
+TodayActivity
+NoActivity;
+TodayList;
+function TodayActivity() {
   return (
     <StyledToday>
       <Row type="horizontal">
@@ -46,4 +48,4 @@ function Today() {
   );
 }
 
-export default Today;
+export default TodayActivity;

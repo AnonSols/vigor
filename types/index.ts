@@ -8,7 +8,8 @@ BOOKINGS='bookings',
 STAYS="stays",
 SETTINGS='settings',
 GUESTS='guests',
-USER='user'
+USER='user',
+ACTIVITY="today-activity"
 }
 
  export enum Page {

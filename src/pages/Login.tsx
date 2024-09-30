@@ -8,15 +8,15 @@ const LoginLayout = styled.main`
   display: grid;
   grid-template-columns: 48rem;
   align-content: center;
-  grid-template-rows:3fr auto;
+  grid-template-rows: 3fr auto;
   justify-content: center;
   gap: 2.8rem;
   background-color: var(--color-grey-50);
 `;
 const Footer = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 5px;
   position: relative;
   bottom: 2rem;
   justify-content: center;
@@ -28,15 +28,23 @@ function Login() {
     <>
       <LoginLayout>
         <section>
-
-       <br /> <br />
-        <Logo />
-       
-        <Heading as="h4">Log in to your account</Heading>
-       <br /> <br />
-        <LoginForm />
+          <br /> <br />
+          <Logo />
+          <Heading as="h4">Log in to your account</Heading>
+          <br /> <br />
+          <LoginForm />
         </section>
-        <Footer>Copyright ©️ {year} | A Rabahh's product</Footer>
+        <Footer>
+          <span>Copyright ©️ {year} |</span>
+          <span>
+            {" "}
+            A{" "}
+            <a href="https://www.instagram.com/officialrabahh/" target="_blank">
+              <b>Rabahh's </b>
+            </a>
+            product
+          </span>
+        </Footer>
       </LoginLayout>
     </>
   );

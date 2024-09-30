@@ -11,20 +11,27 @@
     "gen-types": "npx supabase gen types typescript --linked > types/supabase.ts"
   },
   "dependencies": {
+    "@radix-ui/react-hover-card": "^1.1.1",
     "@supabase/postgrest-js": "^1.15.2",
     "@supabase/supabase-js": "^2.42.5",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",
     "@types/styled-components": "^5.1.34",
+    "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "framer-motion": "^11.9.0",
+    "mini-svg-data-uri": "^1.4.4",
+    "qss": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
     "react-hook-form": "^7.51.3",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.1.0",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.7",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -41,6 +48,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "supabase": "^1.163.2",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2",
     "typescript-eslint": "^7.7.0",
     "vite": "^5.0.0"

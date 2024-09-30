@@ -100,9 +100,9 @@ console.log(data)
 export async function getStaysTodayActivity() {
   const { data, error } = await supabase
     .from("bookings")
-    .select("*, guests(fullName, nationality, countryFlag)")
+    .select("*, guests(name, nationality, countryFlag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+      `and(status.eq.Unconfirmed,startDate.eq.${getToday()}),and(status.eq.Checked-in,endDate.eq.${getToday()})`
     )
     .order("created_at");
 

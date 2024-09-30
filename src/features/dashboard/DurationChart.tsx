@@ -193,7 +193,7 @@ const data = prepareData(startData,confirmedStays);
             verticalAlign="middle"
             align="right"
             iconSize={15}
-            width={30}
+            width={"30%"}
             layout="vertical"
             iconType="circle"
           />

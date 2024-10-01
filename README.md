@@ -1,30 +1,81 @@
-# React + TypeScript + Vite
+I'll integrate the provided images into your README and craft comprehensive posts for LinkedIn and X. Let's start with the README:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Rabahh Hotel Management Application
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a **fully functional** hotel management application built using modern tools like **React TypeScript** for its development, **Context API** for state management, **React Query** for remote state management, and **Supabase** for the backend. 
 
-## Expanding the ESLint configuration
+The application is designed to assist hotel employees with managing user check-ins and check-outs, providing a detailed dashboard to track bookings, sales, and occupancy rates.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Features of Version 1:
+- **Dashboard**: 
+  - View overall sales, bookings, and occupancy rate with interactive charts (e.g., pie charts for night stays).
+  - Track today's activities like guest check-ins and check-outs.
+  - Duration charts showing how long guests stay.
+- **Booking Management**: 
+  - Add, edit, or delete guest bookings.
+  - Check guests in or out.
+  - View detailed guest information.
+- **Room Management**: 
+  - Add, edit, or delete hotel rooms.
+- **Employee Management**: 
+  - Add, edit, or delete hotel employees.
+- **User Profile**: 
+  - Update staff credentials.
+- **Settings Section**: 
+  - Configure hotel preferences.
+- **Light/Dark Mode**: 
+  - Toggle between light and dark mode.
+- **Live Chat**: 
+  - Customer support feature for hotel employees.
+  
+### Version 2 (Planned Updates):
+- Enable adding new guests directly (without sample data).
+- Bookings can be edited, including check-in and check-out times.
+- Dynamic room pricing (daily).
+- **Restaurant Section**: 
+  - Add restaurant charges to guest bills.
+- PDF invoice generation and email at checkout.
 
-- Configure the top-level `parserOptions` property like this:
+### Version 3 (Future Plans):
+- Convert the application to **Next.js**.
+- Build a **customer-facing** site.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Screenshots:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### Dashboard
+![Dashboard](./path-to-image1.png)
+
+#### Login Page
+![Login](./path-to-image2.png) 
+
+### Getting Started
+
+#### Installation
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/AnonSols/Rabahh-Hotel-Management.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm start
+   ```
+
+#### Built With:
+- **React TypeScript**: Frontend
+- **Context API**: State management
+- **React Query**: Remote state management
+- **Supabase**: Backend
+
+### Author:
+- **Egede Solomon Ubeath**  
+  - GitHub: [AnonSols](https://github.com/AnonSols)  
+  - X: [@sigma_ubeath](https://x.com/sigma_ubeath)  
+  - Founder of **Rabahh**
+
+ 

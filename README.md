@@ -42,10 +42,14 @@ The application is designed to assist hotel employees with managing user check-i
 ### Screenshots:
 
 #### Dashboard
-![Dashboard](./path-to-image1.png)
+![Dashboard](/p1.png)
 
 #### Login Page
-![Login](./path-to-image2.png) 
+![Login](/p3.png) 
+
+
+#### Bookings Page
+![Login](/p2.png) 
 
 ### Getting Started
 

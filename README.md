@@ -1,7 +1,4 @@
-I'll integrate the provided images into your README and craft comprehensive posts for LinkedIn and X. Let's start with the README:
-
----
-
+ 
 ## Rabahh Hotel Management Application
 
 This is a **fully functional** hotel management application built using modern tools like **React TypeScript** for its development, **Context API** for state management, **React Query** for remote state management, and **Supabase** for the backend. 

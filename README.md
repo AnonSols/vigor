@@ -43,14 +43,14 @@ The application is designed to assist hotel employees with managing user check-i
 
 
 #### Dashboard 
-<img src="(./public/p-1.png)" alt="Dashboard" width="100%" height="50" />
+<img src="./public/p-1.png" alt="Dashboard" width="100%" height="50" />
 
 #### Login Page
-<img src="(./public/p-3.png)" alt="Login" width="100%" height="50" />
+<img src="./public/p-3.png" alt="Login" width="100%" height="50" />
 
 
 #### Bookings Page
-<img src="(./public/p-2.png)" alt="Bookings" width="100%" height="50" />
+<img src="./public/p-2.png" alt="Bookings" width="100%" height="50" />
 
 ### Getting Started
 

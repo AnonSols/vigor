@@ -122,7 +122,10 @@ const startDataDark: startDataInterface = [
   },
 ];
 
-function prepareData(startData: startDataInterface, stays: BookingType[]|undefined) {
+function prepareData(
+  startData: startDataInterface,
+  stays: BookingType[] | undefined
+) {
   // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
   function incArrayValue(arr: startDataInterface, field: string) {
@@ -131,8 +134,9 @@ function prepareData(startData: startDataInterface, stays: BookingType[]|undefin
     );
   }
 
-  const data = stays?.reduce((arr, cur) => {
-      const num =   cur.numNights;
+  const data = stays
+    ?.reduce((arr, cur) => {
+      const num = cur.numNights;
 
       if (num === 1) return incArrayValue(arr, "1 night");
       if (num === 2) return incArrayValue(arr, "2 nights");
@@ -147,22 +151,17 @@ function prepareData(startData: startDataInterface, stays: BookingType[]|undefin
     .filter((obj) => obj.value > 0);
 
   return data;
-
-  
-  
 }
 
-
- 
 function DurationChart({
   confirmedStays,
 }: {
   confirmedStays: BookingType[] | undefined;
-}) { 
+}) {
   confirmedStays;
-const {isDarkMode} = useDarkModeToggle()
+  const { isDarkMode } = useDarkModeToggle();
   const startData = isDarkMode ? startDataDark : startDataLight;
-const data = prepareData(startData,confirmedStays);
+  const data = prepareData(startData, confirmedStays);
 
   return (
     <ChartBox>
@@ -189,14 +188,15 @@ const data = prepareData(startData,confirmedStays);
             ))}
           </Pie>
           <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            iconSize={15}
-            width={"30%"}
-            layout="vertical"
-            iconType="circle"
-          />
+           
+            <Legend
+              verticalAlign="middle"
+              align="right"
+              iconSize={15} 
+              layout="vertical"
+              iconType="circle"
+            />
+          
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
@@ -204,5 +204,3 @@ const data = prepareData(startData,confirmedStays);
 }
 
 export default DurationChart;
-
-

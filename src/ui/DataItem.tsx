@@ -1,3 +1,5 @@
+import { ReactElement, ReactNode } from "react";
+// import { IconType } from "react-icons/lib";
 import styled from "styled-components";
 
 const StyledDataItem = styled.div`
@@ -20,11 +22,19 @@ const Label = styled.span`
   }
 `;
 
-function DataItem({ icon, label, children }) {
+function DataItem({
+  Icon,
+  label,
+  children,
+}: {
+  Icon: ReactElement;
+  label: string;
+  children: ReactNode;
+}) {
   return (
     <StyledDataItem>
       <Label>
-        {icon}
+        {Icon}
         <span>{label}</span>
       </Label>
       {children}

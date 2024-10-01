@@ -24,18 +24,31 @@ export async function createEditCabin(data:newCabinType, id?:number) {
   const imageUrl =  hasImagePath ? data.image : `${SUPABASE_URL}/storage/v1/object/public/cabins/${imageName}`; 
   //create and edit the cabin
 
-  let query = supabase.from('cabins') 
+  // const query = supabase.from('cabins') 
 
-  //create
-  if(!id) query = query.insert([{...data,image:imageUrl}])
+  // //create
+  // if(!id) query = query.insert([{...data,image:imageUrl}])
 
-  //edit 
-  if(id) query = query
-  .update({...data, image:imageUrl })
-  .eq('id', id)
+  // //edit 
+  // if(id) query = query
+  // .update({...data, image:imageUrl })
+  // .eq('id', id)
   
   
-  const {data:newCabin,error} = await query.select().single()
+  // const {data:newCabin,error} = await query.select().single()
+
+
+  let queryResult;
+
+  if(!id) {
+    //CREATE
+    queryResult = await supabase.from('cabins').insert([{...data,image:imageUrl}])
+  }else{
+    //EDIT
+    queryResult = await supabase.from('cabins').update({...data, image:imageUrl}).eq('id',id).select().single();
+  }
+
+  const {data:newCabin, error} = queryResult;
 
   if(error) {console.log(error)
     throw new Error("An error occurerd creating a cabin.") 

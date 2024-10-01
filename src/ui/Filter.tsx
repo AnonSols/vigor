@@ -57,12 +57,13 @@ const Filter = ({ options, filteredField }: FilterInterface) => {
   const currentFilter = searchParam.get(filteredField) || "all";
   return (
     <StyledFilter>
-      {options.map(({ name, label }) => (
+      {options.map(({ name, label, },id) => (
         <>
           <FilterButton
             active={currentFilter === name}
             onClick={() => handleClick(name)}
             disabled={currentFilter === name}
+            key={id}
           >
             {label}
           </FilterButton>

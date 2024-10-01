@@ -1,0 +1,18 @@
+Version 2 features:
+
+There should be a way to add new guest and check them in without using sample data.
+
+A booking can be edited and have checkin and checkout times
+
+Having way to edit the price of the room daily
+
+Add a resturant to the Hotel, there should be another item in the side bar that known as bill value at checkout the bill has to be paid
+
+
+At checkout we lead the user to a page where we generate a pdf invoice and mail to them
+
+Version 3 implementation   
+
+Convert application to a Nextjs
+
+Build a customer facing site!

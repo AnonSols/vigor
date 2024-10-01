@@ -163,19 +163,19 @@ function BookingDataBox({ booking }: { booking: BookingType }) {
 
         {observations && (
           <DataItem
-            icon={<HiOutlineChatBubbleBottomCenterText />}
+            Icon={<HiOutlineChatBubbleBottomCenterText />}
             label="Observations"
           >
             {observations}
           </DataItem>
         )}
 
-        <DataItem icon={<HiOutlineCheckCircle />} label="Breakfast included?">
+        <DataItem Icon={<HiOutlineCheckCircle />} label="Breakfast included?">
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
         <Price isPaid={isPaid ? isPaid : false}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
+          <DataItem Icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
             {hasBreakfast &&

@@ -42,7 +42,8 @@ const ErrorFallback = ({
   resetErrorBoundary: () => void;
 }) => {
   return (
-    <GlobalStyle>
+    <>
+    <GlobalStyle />
       <StyledErrorFallback>
         <Box>
           <Heading as="h1">Something went wrong 🧐 </Heading>
@@ -53,7 +54,7 @@ const ErrorFallback = ({
           </Button>
         </Box>
       </StyledErrorFallback>
-    </GlobalStyle>
+    </>
   );
 };
 

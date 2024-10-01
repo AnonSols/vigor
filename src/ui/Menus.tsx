@@ -127,6 +127,7 @@ function Toggle({ id }: { id: number }) {
   const { open, isOpenedId, close, setPosition } = useMenuContext();
 
   function handleClick(e: MouseEvent) {
+    e.stopPropagation();
     let rect: DOMRect | undefined;
     if (e.target instanceof Element)
       rect = e.target.closest("button")?.getBoundingClientRect();
@@ -149,7 +150,7 @@ function Toggle({ id }: { id: number }) {
 }
 function List({ id, children }: MenusChildren & { id: number }) {
   const { isOpenedId, close } = useMenuContext();
-  const { ref } = useHandleClick(close);
+  const { ref } = useHandleClick(close,false);
   const { position } = useMenuContext();
   if (isOpenedId !== id) return null;
   return createPortal(

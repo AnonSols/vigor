@@ -5,9 +5,9 @@ export const guests = [
     // id: 1000,
     name: 'Solomon Ubeath',
     email: 'hello@ubeath.io',
-    nationality: 'Nigerian',
+    nationality: 'Nigeria',
     nationalID: '3525436345',
-    countryFlag: 'https://flagcdn.com/pt.svg',
+    countryFlag: 'https://flagcdn.com/ng.svg',
   },
   {
     name: 'Rabahh Rabahh',

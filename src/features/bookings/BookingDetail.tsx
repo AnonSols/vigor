@@ -17,6 +17,7 @@ import { useCheckout } from "../check-in-out/hook/useCheckout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBookings } from "./hooks/useDeleteBookings";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ function BookingDetail() {
 
   const booking = data as BookingType;
   if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resource ="booking" />;
 
   const { status, id: bookingsId } = booking;
   //Note to self hooks should be called on the top level of a component to prevent: Invariant Violation or

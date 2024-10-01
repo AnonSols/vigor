@@ -30,26 +30,44 @@ function CabinTable() {
   if (isLoading) return <Spinner />;
 
   const filteredValue = searchParams.get("discount") || "all";
-  let filteredCabin;
+  let filteredCabin: newCabinType[] | undefined;
 
   // console.log(filteredCabin);
   if (filteredValue === "all") filteredCabin = cabins;
 
   if (filteredValue === "with-discount")
-    filteredCabin = cabins?.filter((cabin) => cabin.discount > 0);
+    filteredCabin = cabins?.filter(
+      (cabin) => cabin.discount && cabin.discount > 0
+    );
 
   if (filteredValue === "no-discount")
-    filteredCabin = cabins?.filter((cabin) => cabin.discount === 0);
+    filteredCabin = cabins?.filter(
+      (cabin) => cabin.discount && cabin.discount === 0
+    );
 
   const sortedBy = searchParams.get("sortBy") || "name-asc";
 
   const [field, direction] = sortedBy.split("-");
 
   const modifier = direction === "desc" ? -1 : 1;
-  const sortedCabins = filteredCabin?.sort(
-    (a, b) => a[field] - b[field] * modifier
-  );
+  // const sortedCabins = filteredCabin?.sort(
+  //   (a, b) => a[field] - b[field] * modifier
+  // );
 
+const sortedCabins = filteredCabin?.sort((a, b) => {
+  const aValue = a[field as keyof newCabinType];
+  const bValue = b[field as keyof newCabinType];
+
+  if (typeof aValue === "number" && typeof bValue === "number") {
+    return (aValue - bValue) * modifier;
+  }
+
+  if (typeof aValue === "string" && typeof bValue === "string") {
+    return aValue.localeCompare(bValue) * modifier;
+  }
+
+  return 0;
+});
   return (
     <Menus>
       <Table column="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">

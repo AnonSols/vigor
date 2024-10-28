@@ -65,7 +65,7 @@ The application is designed to assist hotel employees with managing user check-i
    ```
 3. Run the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 #### Built With:
